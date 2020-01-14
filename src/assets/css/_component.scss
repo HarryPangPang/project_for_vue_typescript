@@ -1,0 +1,125 @@
+.mask {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: fixed;
+  background-color: #000;
+  opacity: 0.8;
+  z-index: 100;
+}
+
+.none {
+  display: none !important;
+}
+.dialog {
+  position: fixed;
+  width: 101%;
+  height: 101%;
+  left: 0;
+  top: 0;
+  display: flex;
+  z-index: 100;
+}
+
+.dialog.outter-dialog {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 101;
+  left: 50%;
+  top: 50%;
+}
+.outter-dialog.loading img {
+  width: px2vw(80px);
+}
+
+.loading-mask {
+  z-index: 100;
+}
+.rule-mask {
+  z-index: 15;
+  height: 100%;
+  top: auto;
+  bottom: 0;
+}
+.loading-mask {
+  z-index: 100;
+}
+.team-detail-warp {
+  width: px2vw(909px);
+  // min-height: px2vh(580px);
+  background-color: #3b3b3b;
+  position: relative;
+  padding: px2vh(46px) px2vw(34px) 0 px2vw(38px);
+  margin: 0 auto;
+  overflow: hidden;
+  .team-member-warp {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: px2vw(840px);
+    margin: 0 auto;
+    margin-bottom: px2vh(60px);
+    max-height: px2vh(405px);
+  }
+  .team-member-title {
+    font-family: "Kensmark-03-Black";
+    @include res-size($font-size: 52px);
+    word-break: break-word;
+    margin: px2vh(45px) px2vw(38px) px2vh(31px) px2vw(78px);
+  }
+  .icon-cross {
+    background-size: px2vw(33px);
+    width: px2vw(33px);
+    height: px2vw(33px);
+    display: inline-block;
+    position: absolute;
+    top: px2vh(14px);
+    left: px2vw(18px);
+  }
+  .team-member-item {
+    display: block;
+    @include res-size($width: 166px);
+    margin-right: px2vw(2px);
+    .team-member-item-photo {
+      @include res-size($width: 166px, $height: 325px);
+      img {
+        @include res-size($width: 166px, $height: 325px);
+      }
+    }
+    .team-member-content {
+      background: #fcca46;
+      max-height: px2vh(80px);
+      padding: px2vh(11px) px2vh(13px) px2vh(5px);
+      .team-member-palyer {
+        font-weight: bold;
+        @include res-size($font-size: 25px);
+      }
+      .team-member-name {
+        font-weight: 100;
+        font-family: "Bahnschrift";
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        /* autoprefixer: off */
+        -webkit-box-orient: vertical;
+        /*! autoprefixer: on */
+        word-wrap: wrap;
+        word-break: break-word;
+        display: -webkit-box;
+        @include res-size($font-size: 17px, $line-height: 25px, $height: 50px);
+      }
+
+      //  .team-member-name-long{
+      //  	@include res-size(
+      // 	$font-size: 14px,
+      // 	// $line-height: 20px,
+      // 	// $height: 40px
+      // );
+      //  }
+    }
+  }
+}
