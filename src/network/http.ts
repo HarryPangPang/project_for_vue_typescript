@@ -46,9 +46,9 @@ const handleError = (errormsg:String) => {
 
 // 请求加载框 如果不需要返回空
 const handleLoading = (visable:Boolean) => {
-  // uiFeatures.HaLoading({
-  //   visable,
-  // });
+  uiFeatures.HaLoading({
+    visable,
+  });
 };
 
 /* request拦截器 */

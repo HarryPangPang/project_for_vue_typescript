@@ -63,3 +63,4 @@ yarn lint
 11. 网络超时和错误会弹窗（样式待调整）
 12. http请求的lang和access_token需自己配置
 13. 组件默认全部集成，可在main.ts中修改成按需加载
+14. 默认airbnb eslint
