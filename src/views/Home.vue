@@ -24,7 +24,6 @@ export default class Home extends Vue {
 
   userData:Object = {}
 
-  userinfo:Object = {}
 
   private title:String = 'title'
 
