@@ -84,21 +84,15 @@ module.exports = {
 
   // 调整 webpack 配置
   css: {
-  	// 启用 CSS modules
-  	requireModuleExtension: false,
-  	// 是否使用css分离插件
-  	extract: true,
-  	// 开启 CSS source maps，一般不建议开启
-  	// eslint-disable-next-line no-tabs
-  	sourceMap: true,
   	// css预设器配置项
   	loaderOptions: {
   		scss: {
   			// 设置css中引用文件的路径，引入通用使用的scss文件（如包含的@mixin）
-  			prependData: '@import "~@/assets/css/index.scss";',
+  			prependData: '@import "@/assets/css/index.scss";',
   		},
-  	},
+    },
   },
+  // },
   // webpack-dev-server 相关配置 https://webpack.js.org/configuration/dev-server/
   configureWebpack: (config) => {
     // 生产环境

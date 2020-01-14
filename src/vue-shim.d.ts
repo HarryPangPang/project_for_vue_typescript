@@ -8,3 +8,11 @@ declare module 'vue/types/vue' {
     $api:any
   }
 }
+declare module '*.scss' {
+  const content: any;
+  export default content;
+}
+declare module '*.css' {
+  const content: any;
+  export default content;
+}

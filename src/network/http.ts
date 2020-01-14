@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
 import Vue from 'vue';
 import axios, { AxiosStatic } from 'axios';
-import uiFeatures from '@/uiFeatures/index';
+import { Loading, Message } from 'element-ui';
 
+let loadingInstance;
 const { CancelToken } = axios;
 
 declare module 'vue/types/vue' {
@@ -37,17 +38,11 @@ const service = axios.create({
 const regex = /.*csrftoken=([^;.]*).*$/; // 用于从cookie中匹配 csrftoken值
 
 // 错误处理
-const handleError = (errormsg:String) => {
-  uiFeatures.HaToast({
-    visable: true,
-    msg: errormsg,
-  });
-};
-
-// 请求加载框 如果不需要返回空
-const handleLoading = (visable:Boolean) => {
-  uiFeatures.HaLoading({
-    visable,
+const handleError = (errormsg:string) => {
+  Message({
+    message: errormsg,
+    type: 'error',
+    duration: 5 * 1000,
   });
 };
 
@@ -55,7 +50,7 @@ const handleLoading = (visable:Boolean) => {
 service.interceptors.request.use(
   // eslint-disable-next-line consistent-return
   (config: any) => {
-    handleLoading(true);
+    loadingInstance = Loading.service({ fullscreen: true });
     // 重复点击start=======
     requestFlag = config.url + config.method;
     if (requestUrls.indexOf(requestFlag) > -1) {
@@ -78,7 +73,7 @@ service.interceptors.request.use(
 /* respone拦截器 */
 service.interceptors.response.use(
   (response: any) => {
-    handleLoading(false);
+    // handleLoading(false);
     requestUrls.splice(requestUrls.indexOf(requestFlag), 1);
     // 移除队列中的该请求，注意这时候没有传第二个参数f
     return response;
@@ -89,7 +84,7 @@ service.interceptors.response.use(
       errorMsg.message = 'duplicate request';
       return Promise.reject(errorMsg);
     }
-    handleLoading(false);
+    // handleLoading(false);
     if (error.message && error.message.indexOf('timeout') > -1) {
       requestUrls.splice(requestUrls.indexOf(requestFlag), 1);
       errorMsg.message = 'request timeout';

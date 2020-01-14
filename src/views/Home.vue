@@ -4,7 +4,6 @@
     <div>{{title}}</div>
     <h4 v-if="userData.player">{{userData.player.nickname}}</h4>
     <button @click="goAbout">goAbout</button>
-    <HaDialog :visable.sync='visable'></HaDialog>
   </div>
 </template>
 
@@ -36,10 +35,6 @@ export default class Home extends Vue {
   }
 
   mounted() {
-    // this.$toast({
-    //   msg: 'This is Toast',
-    //   visable: false,
-    // });
     this.$http.get(this.$api.userinfo).then((res:any) => {
       this.userData = res.data.data;
     });

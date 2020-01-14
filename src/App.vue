@@ -12,7 +12,7 @@
 </template>
 <style lang="scss" scoped>
 #app{
-  font-family: $font-family;
+  // font-family: $font-family;
 }
 @media screen and (max-width: 768px) and (orientation: portrait) {
   .wp_pop {
