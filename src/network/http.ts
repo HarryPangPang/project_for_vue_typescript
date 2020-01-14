@@ -1,75 +1,103 @@
+/* eslint-disable no-param-reassign */
 import Vue from 'vue';
 import axios, { AxiosStatic } from 'axios';
+import uiFeatures from '@/uiFeatures/index';
 
-declare module 'vue/types/vue' {
-    interface VueConstructor {
-        $toast: any
-    }
-    interface Vue {
-        axios: AxiosStatic;
-    }
-}
-const BASE_URL = process.env.VUE_APP_API_URL;
-/* 防止重复提交，利用axios的cancelToken */
-let pending: any[] = []; // 声明一个数组用于存储每个ajax请求的取消函数和ajax标识
 const { CancelToken } = axios;
 
-const removePending: any = (config: any, f: any) => {
-  // 获取请求的url
-  const flagUrl = config.url;
-  // 判断该请求是否在请求队列中
-  if (pending.indexOf(flagUrl) !== -1) {
-    // 如果在请求中，并存在f,f即axios提供的取消函数
-    if (f) {
-      f('取消重复请求'); // 执行取消操作
-    } else {
-      pending.splice(pending.indexOf(flagUrl), 1); // 把这条记录从数组中移除
-    }
-  } else {
-    // 如果不存在在请求队列中，加入队列
-    // eslint-disable-next-line no-lonely-if
-    if (f) {
-      pending.push(flagUrl);
-    }
+declare module 'vue/types/vue' {
+  interface VueConstructor {
+    $toast: any;
   }
+  interface Vue {
+    axios: AxiosStatic;
+  }
+}
+interface errorMsg{
+  type:string
+  message:string
+}
+// 基础地址
+const BASE_URL = process.env.VUE_APP_API_URL;
+// 错误返回
+const errorMsg:errorMsg = {
+  type: 'error',
+  message: 'unhandle',
 };
+// 请求集合，防止重复点击
+const requestUrls: string[] = [];
+let requestFlag:string = '';
+
 /* 创建axios实例 */
 const service = axios.create({
-  timeout: 10000, // 请求超时时间
+  timeout: 3000, // 请求超时时间
   baseURL: BASE_URL,
+  withCredentials: true,
 });
+const regex = /.*csrftoken=([^;.]*).*$/; // 用于从cookie中匹配 csrftoken值
+
+// 错误处理
+const handleError = (errormsg:String) => {
+  uiFeatures.HaToast({
+    visable: true,
+    msg: errormsg,
+  });
+};
+
+// 请求加载框 如果不需要返回空
+const handleLoading = (visable:Boolean) => {
+  // uiFeatures.HaLoading({
+  //   visable,
+  // });
+};
 
 /* request拦截器 */
-service.interceptors.request.use((config: any) => {
-  // neverCancel 配置项，允许多个请求
-  if (!config.neverCancel) {
-    // 生成cancelToken
-    // eslint-disable-next-line no-param-reassign
-    config.cancelToken = new CancelToken((c: any) => {
-      removePending(config, c);
-    });
-  }
-
-  return config;
-}, (error: any) => {
-  Promise.reject(error);
-});
+service.interceptors.request.use(
+  // eslint-disable-next-line consistent-return
+  (config: any) => {
+    handleLoading(true);
+    // 重复点击start=======
+    requestFlag = config.url + config.method;
+    if (requestUrls.indexOf(requestFlag) > -1) {
+      config.cancelToken = new CancelToken((cancel:any) => {
+        errorMsg.message = 'duplicate request';
+        cancel('duplicate request');
+      });
+    } else {
+      requestUrls.push(requestFlag);
+      config.headers['X-CSRFToken'] = document.cookie.match(regex) ? document.cookie.match(regex)![1] : null;
+    }
+    // 重复点击end=======
+    return config;
+  },
+  (error: any) => {
+    Promise.reject(error);
+  },
+);
 
 /* respone拦截器 */
 service.interceptors.response.use(
   (response: any) => {
+    handleLoading(false);
+    requestUrls.splice(requestUrls.indexOf(requestFlag), 1);
     // 移除队列中的该请求，注意这时候没有传第二个参数f
-    removePending(response.config);
     return response;
   },
   (error: any) => {
     // 异常处理
-    // eslint-disable-next-line no-console
-    console.error(error);
-    pending = [];
-    if (error.message === '取消重复请求') {
-      return Promise.reject(error);
+    if (error.message && error.message === 'duplicate request') {
+      errorMsg.message = 'duplicate request';
+      return Promise.reject(errorMsg);
     }
+    handleLoading(false);
+    if (error.message && error.message.indexOf('timeout') > -1) {
+      requestUrls.splice(requestUrls.indexOf(requestFlag), 1);
+      errorMsg.message = 'request timeout';
+      handleError(errorMsg.message);
+      return Promise.reject(errorMsg);
+    }
+    handleError(errorMsg.message);
+    requestUrls.splice(requestUrls.indexOf(requestFlag), 1);
     return Promise.reject(error);
   },
 );

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
+    <img alt="Vue logo" src="../assets/images/logo.png" />
     <div>{{title}}</div>
     <HaDialog :visable.sync='visable'></HaDialog>
   </div>
@@ -33,8 +33,11 @@ export default class Home extends Vue {
     //   msg: 'This is Toast',
     //   visable: false,
     // });
-    this.$http.get('userinfo').then((res:any) => {
-      console.log(res);
+    this.$http.get(this.$api.userinfo).then((res:any) => {
+      // console.log(res);
+    });
+    this.$http.get(this.$api.userinfo).then((res:any) => {
+      // console.log(res);
     });
   }
 }

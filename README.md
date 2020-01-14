@@ -58,3 +58,8 @@ yarn lint
 6. 删除无用css
 7. 集成vconsole-webpack-plugin
 8. 启动thread-loader
+9. api集中在api/文件夹下，this.$api.xxxx调用
+10. 默认会对重复请求进行过滤
+11. 网络超时和错误会弹窗（样式待调整）
+12. http请求的lang和access_token需自己配置
+13. 组件默认全部集成，可在main.ts中修改成按需加载
