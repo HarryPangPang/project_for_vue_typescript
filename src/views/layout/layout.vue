@@ -32,7 +32,7 @@
       </el-menu>
     </el-aside>
     <el-container>
-      <el-header>Header</el-header>
+      <el-header></el-header>
       <el-main>
         <slot name="main"></slot>
       </el-main>
@@ -60,7 +60,7 @@ export default class Layout extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;
     height: 100%;
