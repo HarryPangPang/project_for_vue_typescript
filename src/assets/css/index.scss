@@ -1,9 +1,52 @@
 @import './reset.scss';
+@import 'variable';
 @import './fonts.scss';
 @import './mixins.scss';
 @import './component.scss';
 @import './animation.scss';
-@import './multi-lang-hack.scss';
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  min-width: 0px;
+  min-height: 0px;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+body {
+  background-image: #ffffff;
+  background-repeat: no-repeat;
+  &.blocked {
+    overflow: hidden;
+  }
+}
+#app {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.content-container {
+  min-height: 75vh;
+  position: relative;
+  top: 0;
+  overflow-x: hidden;
+}
+.btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.navbar {
+  &__showing {
+    // position: relative;
+    margin-top: 15vw;
+  }
+}
+@import 'pages/modal';
+// @import './multi-lang-hack.scss';
 
 // 发布时删除
 // @import './images.scss';

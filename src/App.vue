@@ -1,15 +1,30 @@
 <template>
   <div id="app">
+    <Navbar />
     <router-view />
     <!-- 非横屏显示 -->
-    <div class="wp_pop">
+    <!-- <div class="wp_pop">
       <div class="wp_content">
         <div class="wp_pop_img"></div>
         <p class="wp_tips">Please rotate your phone for the best browsing experience</p>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+
+import Navbar from './views/common/Nav.vue';
+
+@Component({
+  components: {
+    Navbar,
+  },
+})
+export default class App extends Vue {
+
+}
+</script>
 <style lang="scss" scoped>
 #app{
   font-family: $font-family;

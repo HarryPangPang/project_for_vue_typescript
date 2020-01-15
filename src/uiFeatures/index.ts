@@ -1,9 +1,11 @@
 import HaToast from './components/HaToast/index';
 import HaDialog from './components/HaDialog/index';
 import HaLoading from './components/HaLoading/index';
+import HaModal from './components/HaModal/index';
 
 const components = [
   HaDialog,
+  HaModal,
 ];
 // eslint-disable-next-line func-names
 const install = function (Vue: any, options = {}) {

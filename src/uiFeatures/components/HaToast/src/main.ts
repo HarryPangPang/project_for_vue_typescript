@@ -4,7 +4,8 @@ import Main from './main.vue';
 const HaToastConstructor = Vue.extend(Main);
 let instance: any;
 interface options {
-  msg: String;
+  delay?: number;
+  msg?: String;
   visable:Boolean,
   onClose?: Function;
 }
@@ -20,6 +21,12 @@ const HaToast = function (options: options) {
   options.onClose = function () {
     HaToast.close();
   };
+  if(options.delay){
+    const timer = setTimeout(() => {
+      HaToast.close();
+      clearTimeout(timer)
+    }, options.delay);
+  }
   instance.$mount();
   document.body.appendChild(instance.$el);
 };

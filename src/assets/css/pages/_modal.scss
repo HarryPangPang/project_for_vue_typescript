@@ -1,0 +1,366 @@
+.modal {
+    $self : &;
+    $btn:'.btn';
+    $bug : '.bugs';
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    background-image: linear-gradient(to bottom, $blue, $black);
+    color: white;
+    &__detail {
+        max-width: 100%;
+        min-height: 100%;
+        width: 100%;
+        padding: 0;
+        
+        .styles_closeIcon__1QwbI {
+            display: none;
+        }
+        #{ $bug }__details {
+            background-image: linear-gradient(to bottom, $blue, $black);
+            color: white;
+            padding-top: 20%;
+            padding-bottom: 10%;
+            text-align: center;
+            h1 {
+                  // margin-top: 20%;
+                font-family: Bahnschrift;
+                font-size: 12vw;
+                // &:nth-of-type(2) {
+                //     margin-top: 10%;
+                // }
+            }
+            p {
+                padding: 0 7vw;
+                margin: 2.5% 0 15%;
+                font-family: Roboto;
+                font-size: 3.5vw;
+                color: $grey;
+            }
+            #{ $bug }__info {
+                padding: 5vw 0 10vw;
+                border-top: 1px solid $grey_trans;
+                border-bottom: 1px solid $grey_trans;
+                .date {
+                    color:$yellow;
+                    font-family: Bahnschrift;
+                    margin: 0;
+                    text-align: left;
+                    font-size: 3.5vw;
+                }
+                .text {
+                    font-family: Bahnschrift;
+                    margin: 0;
+                    text-align: left;
+                    &.title {
+                        color: $white;
+                        font-size: 5vw;
+                    }
+                    font-size: 3.5vw;
+                    color: $grey;
+                }
+            }
+            #{ $bug }__prob {
+                padding: 5vw 0 10vw;
+                .text {
+                    font-family: Bahnschrift;
+                    margin: 0;
+                    text-align: left;
+                    &.title {
+                        color: $white;
+                        font-size: 5vw;
+                    }
+                    font-size: 3.5vw;
+                    color: $grey;
+                }
+            }
+            #{ $bug }__link {
+                border-top: 1px solid $grey_trans;
+                .text {
+                    font-family: Bahnschrift;
+                    margin: 0;
+                    text-align: left;
+                    &.title {
+                        margin-top: 10%;
+                        color: $white;
+                        font-size: 5vw;
+                    }
+                    &.subtitle {
+                        margin-top: 5%;
+                        color: $white;
+                        font-size: 3.5vw;
+                        text-align: left;
+                        display: block;
+                        
+                    }
+                    font-size: 3.5vw;
+                    color: $grey;
+                    
+                }
+                a {
+                    margin: 1% 7vw 0 !important;
+                    color: rgb(41, 58, 155) !important;
+                }
+            }
+        }
+        #{ $btn }__ok {
+            font-family: Bahnschrift;
+            font-size:5vw;
+            background-color: $yellow;
+            padding: 6vw 0;
+            border-radius: 2px;
+            color: $black;
+            width: 50%;
+            justify-content: center;
+            margin: 15% auto 0;
+        }
+               
+    }
+    &__failed {
+        $btn : '.btn';
+        $fail : '.failed';
+        & > div {
+            background-image: linear-gradient(to bottom, $blue, $black);
+        }
+        .styles_closeIcon__1QwbI {
+            display: none;
+        }
+        .logo {
+            margin-bottom: 20%;
+        }
+        #{ $fail }__container {
+            width: 100%;
+            position: relative;
+            // background: url('/../images/bg-main-trans.png') no-repeat top center;
+            color: white;
+            padding-bottom: 10%;
+            background-size: 100%;
+            margin: 15% auto 0;
+            min-height: 70vh;
+            color: #ffff;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            h1 {
+                margin-top: 20%;
+                font-family: Bahnschrift;
+                font-size: 12vw;
+            }
+            p {
+                padding: 0 10vw;
+                margin: 2.5% 0 30%;
+                font-family: Roboto;
+                font-size: 3.25vw;
+                &:nth-of-type(2) {
+                    margin: 5% 0 0;
+                }
+            }
+            hr {
+                max-width: 50%;
+                width: 100%;
+                border-width: 1px;
+                margin: 0 auto;
+            }
+            #{ $btn }__ok {
+                font-family: Bahnschrift;
+                font-size:5vw;
+                background-color: $yellow;
+                padding: 6vw 0;
+                border-radius: 2px;
+                color: $black;
+                width: 50%;
+                justify-content: center;
+                margin: 20% auto 0;
+            }
+        }
+        #{ $fail }__box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    &__error {
+        width: 80%;
+        height: 35%;
+        & > div {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            justify-content: center;
+            font-family: Bahnschrift;
+            padding: 0 5%;
+            margin-top: 5%;
+        }
+    }
+    &__success {
+        $btn : '.btn';
+        $scs : '.success';
+        .logo {
+            margin-bottom: 20%;
+        }
+        #{ $scs }__container {
+            width: 100%;
+            position: relative;
+            background: url('/../images/bg-main-trans.png') no-repeat top center;
+            background-size: 100%;
+            margin: 15% auto 0;
+            // padding: 0 5%;
+            min-height: 70vh;
+            color: #ffff;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding-bottom: 5%;
+            @media screen and (orientation:landscape) {
+                margin-top: 5%;
+                img {
+                    
+                    max-width: 8%;
+                }
+            }
+            h1 {
+                margin-top: 20%;
+                font-family: Bahnschrift;
+                font-size: 12vw;
+
+                @media screen and (orientation:landscape) {
+                    margin-top: 5%;
+                    font-size: 5vw;
+                }
+            }
+            p {
+                padding: 0 10vw;
+                margin: 2.5% 0 22.5%;
+                font-family: Roboto;
+                font-size: 3.25vw;
+                &:nth-of-type(2) {
+                    margin: 5% 0 0;
+                }
+                @media screen and (orientation:landscape) {
+                    // margin-top: 5%;
+                    font-size: 2vw;
+                    margin: 2.5% 0 5%;
+                }
+            }
+            hr {
+                max-width: 50%;
+                width: 100%;
+                border-width: 1px;
+                margin: 0 auto;
+            }
+            #{ $btn }__ok {
+                font-family: Bahnschrift;
+                font-size:5vw;
+                background-color: $yellow;
+                padding: 6vw 0;
+                border-radius: 2px;
+                color: $black;
+                width: 50%;
+                justify-content: center;
+                margin: 20% auto 0;
+                text-decoration:none;
+                
+                @media screen and (orientation:landscape) {
+                    margin: 10% auto 0;
+                    padding: 3vw 0;
+                }
+            }
+            #{ $scs }__box {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+    &__prize {
+        height: auto;
+        background: #27b1ee;
+        $prz : '.prize';
+        #{ $prz }__container {
+            .title {
+                // margin-top: 20%;
+                font-family: Bahnschrift;
+                font-size: 12vw;
+                margin-top: 17.5%;
+                text-align: center;
+                &.secondary {
+                    font-size: 5vw;
+                    margin: 0;
+                }
+
+            }
+            .subtitle {
+                font-family: RobotoBold;
+                font-size: 3vw;
+                color: rgba(255,255,255, 0.6);
+            }
+            .box {
+                margin-top: 5%;
+                background: #0079AF;
+                padding: 4vw 0;
+                text-align: center;
+                font-weight: 100;
+            }
+            .reward-adv {
+                height: 70vw;
+                overflow: hidden;
+                margin-top: 5%;
+                position: relative;
+                &::after {
+                    content: ' ';
+                    box-shadow: 0 0 40px 40px #0079AF;
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    
+
+                }
+            }
+            .reward-grand {
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                padding: 0 3vw;
+            }
+            .reward-item{
+                flex-basis: 30%;
+                margin-top: 2.5vh;
+                
+                p {
+                    font-family: RobotoBold;
+                    font-size: 3vw;
+                    text-align: center;
+                    margin-bottom: 5%;
+                    &:nth-of-type(2) {
+                        font-size: 2.25vw;
+                        font-family: Roboto;
+                        font-weight: 100;
+                    }
+                }
+            }
+        }
+    }
+    
+}
+.overlay {
+    &__custom {
+        padding: 0;
+    }
+}
+.close {
+    &__custom {
+        right: 50%;
+        transform: translateX(50%);
+    }
+}
+
+.closeIcon {
+    &__custom {
+        fill:white;
+    }
+}

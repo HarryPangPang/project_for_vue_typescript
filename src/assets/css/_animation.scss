@@ -306,3 +306,32 @@
   transform-origin: center bottom;
   animation-duration: 1s;
 }
+
+.animated.faster {
+  -webkit-animation-duration: 300ms;
+  animation-duration: 300ms;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
