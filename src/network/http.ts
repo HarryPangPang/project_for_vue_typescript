@@ -3,7 +3,7 @@ import Vue from 'vue';
 import axios, { AxiosStatic } from 'axios';
 import { Loading, Message } from 'element-ui';
 
-let loadingInstance;
+let loadingInstance:any;
 const { CancelToken } = axios;
 
 declare module 'vue/types/vue' {
@@ -73,7 +73,7 @@ service.interceptors.request.use(
 /* respone拦截器 */
 service.interceptors.response.use(
   (response: any) => {
-    // handleLoading(false);
+    loadingInstance.close();
     requestUrls.splice(requestUrls.indexOf(requestFlag), 1);
     // 移除队列中的该请求，注意这时候没有传第二个参数f
     return response;
@@ -84,13 +84,13 @@ service.interceptors.response.use(
       errorMsg.message = 'duplicate request';
       return Promise.reject(errorMsg);
     }
-    // handleLoading(false);
     if (error.message && error.message.indexOf('timeout') > -1) {
       requestUrls.splice(requestUrls.indexOf(requestFlag), 1);
       errorMsg.message = 'request timeout';
       handleError(errorMsg.message);
       return Promise.reject(errorMsg);
     }
+    loadingInstance.close();
     handleError(errorMsg.message);
     requestUrls.splice(requestUrls.indexOf(requestFlag), 1);
     return Promise.reject(error);

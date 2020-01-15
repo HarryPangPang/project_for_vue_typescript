@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view />
+    <Layout>
+      <template slot="main"><router-view /></template>
+    </Layout>
     <!-- 非横屏显示 -->
     <div class="wp_pop">
       <div class="wp_content">
@@ -10,9 +12,24 @@
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import Layout from './views/layout/layout.vue';
+
+@Component({
+  components: {
+    Layout,
+  },
+})
+export default class App extends Vue {
+}
+</script>
+
 <style lang="scss" scoped>
 #app{
-  // font-family: $font-family;
+  height: 100vh;
+  width: 100vw;
 }
 @media screen and (max-width: 768px) and (orientation: portrait) {
   .wp_pop {
