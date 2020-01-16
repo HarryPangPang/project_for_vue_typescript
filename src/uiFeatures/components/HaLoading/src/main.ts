@@ -9,7 +9,7 @@ interface options {
   onClose?: Function;
 }
 /* eslint-disable */
-const HaLoading = function (options: options) {
+const haLoading = function (options: options) {
   if(!instance){
     instance = new HaLoadingConstructor({
       data: options,
@@ -18,13 +18,13 @@ const HaLoading = function (options: options) {
   Object.assign(instance,options)
   //   let userOnClose = options.onClose;
   options.onClose = function () {
-    HaLoading.close();
+    haLoading.close();
   };
   instance.$mount();
   document.body.appendChild(instance.$el);
 };
-HaLoading.close = function () {
+haLoading.close = function () {
   instance.close();
 };
 
-export default HaLoading;
+export default haLoading;

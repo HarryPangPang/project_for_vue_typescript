@@ -119,9 +119,9 @@ module.exports = {
         filename: 'css/[name].[contenthash:8].css',
         chunkFilename: 'css/[name].[contenthash:8].css',
       }),
-      new PurgecssPlugin({
-        paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
-      }),
+      // new PurgecssPlugin({
+      //   paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
+      // }),
       new CompressionWebpackPlugin({
         // 文件开启Gzip
         filename: '[path].gz[query]',

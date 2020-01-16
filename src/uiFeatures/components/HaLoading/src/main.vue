@@ -12,7 +12,7 @@ import {
 } from 'vue-property-decorator';
 
 @Component
-export default class HaLoading extends Vue {
+export default class haLoading extends Vue {
   visable: Boolean = false;
 
   msg: String = '';

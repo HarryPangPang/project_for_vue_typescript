@@ -10,9 +10,9 @@ import {
 } from 'vue-property-decorator';
 
 @Component({
-  name: 'HaModal',
+  name: 'haModal',
 })
-export default class HaModal extends Vue {
+export default class haModal extends Vue {
   @Watch('visable', { deep: true, immediate: true })
   onVisable(val:boolean) {
     if (val) {

@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "ss":"serve -s ./dist",
     "tpl": "node buildhelper/tplbuilder.js",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
@@ -40,6 +41,7 @@
     "ora": "^4.0.3",
     "purgecss-webpack-plugin": "^1.6.0",
     "sass-loader": "^8.0.0",
+    "serve": "^11.3.0",
     "sharp": "^0.23.4",
     "typescript": "~3.5.3",
     "uglifyjs-webpack-plugin": "^2.2.0",

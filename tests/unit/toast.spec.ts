@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import HaToast from '../../src/uiFeatures/components/HaToast/index';
+import haToast from '../../src/uiFeatures/components/haToast/index';
 
 // describe('HelloWorld.vue', () => {
 //   it('renders props.msg when passed', () => {

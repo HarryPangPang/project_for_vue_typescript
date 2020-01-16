@@ -1,12 +1,12 @@
-import HaDialog from './src/main.vue';
+import haDialog from './src/main.vue';
 
 declare module 'vue/types/vue' {
   interface VueConstructor {
       install: any
   }
 }
-HaDialog.install = (Vue:any) => {
-  Vue.component('HaDialog', HaDialog);
+haDialog.install = (Vue:any) => {
+  Vue.component('haDialog', haDialog);
 };
 
-export default HaDialog;
+export default haDialog;

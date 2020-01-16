@@ -1,12 +1,12 @@
-import HaModal from './src/main.vue';
+import haModal from './src/main.vue';
 
 declare module 'vue/types/vue' {
   interface VueConstructor {
       install: any
   }
 }
-HaModal.install = (Vue:any) => {
-  Vue.component('HaModal', HaModal);
+haModal.install = (Vue:any) => {
+  Vue.component('haModal', haModal);
 };
 
-export default HaModal;
+export default haModal;

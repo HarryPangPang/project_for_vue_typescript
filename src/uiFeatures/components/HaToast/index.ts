@@ -1,3 +1,3 @@
-import HaToast from './src/main';
+import haToast from './src/main';
 
-export default HaToast;
+export default haToast;

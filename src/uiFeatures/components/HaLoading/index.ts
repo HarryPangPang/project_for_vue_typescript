@@ -1,3 +1,3 @@
-import HaLoading from './src/main';
+import haLoading from './src/main';
 
-export default HaLoading;
+export default haLoading;

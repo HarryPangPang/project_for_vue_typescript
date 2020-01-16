@@ -1,11 +1,11 @@
-import HaToast from './components/HaToast/index';
-import HaDialog from './components/HaDialog/index';
-import HaLoading from './components/HaLoading/index';
-import HaModal from './components/HaModal/index';
+import haToast from './components/haToast/index';
+import haDialog from './components/haDialog/index';
+import haLoading from './components/haLoading/index';
+import haModal from './components/haModal/index';
 
 const components = [
-  HaDialog,
-  HaModal,
+  haDialog,
+  haModal,
 ];
 // eslint-disable-next-line func-names
 const install = function (Vue: any, options = {}) {
@@ -13,7 +13,7 @@ const install = function (Vue: any, options = {}) {
     Vue.component(component.name, component);
   });
   // eslint-disable-next-line no-param-reassign
-  Vue.prototype.$toast = HaToast;
+  Vue.prototype.$toast = haToast;
 };
 declare global {
   interface Window {
@@ -27,6 +27,6 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
   install,
-  HaToast,
-  HaLoading,
+  haToast,
+  haLoading,
 };

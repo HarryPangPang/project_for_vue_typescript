@@ -38,7 +38,7 @@ const regex = /.*csrftoken=([^;.]*).*$/; // 用于从cookie中匹配 csrftoken�
 
 // 错误处理
 const handleError = (errormsg:String) => {
-  uiFeatures.HaToast({
+  uiFeatures.haToast({
     visable: true,
     msg: errormsg,
   });
@@ -46,7 +46,7 @@ const handleError = (errormsg:String) => {
 
 // 请求加载框 如果不需要返回空
 const handleLoading = (visable:Boolean) => {
-  uiFeatures.HaLoading({
+  uiFeatures.haLoading({
     visable,
   });
 };

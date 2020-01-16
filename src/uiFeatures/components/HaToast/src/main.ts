@@ -10,7 +10,7 @@ interface options {
   onClose?: Function;
 }
 /* eslint-disable */
-const HaToast = function (options: options) {
+const haToast = function (options: options) {
   if(!instance){
     instance = new HaToastConstructor({
       data: options,
@@ -19,19 +19,19 @@ const HaToast = function (options: options) {
   Object.assign(instance,options)
   //   let userOnClose = options.onClose;
   options.onClose = function () {
-    HaToast.close();
+    haToast.close();
   };
   if(options.delay){
     const timer = setTimeout(() => {
-      HaToast.close();
+      haToast.close();
       clearTimeout(timer)
     }, options.delay);
   }
   instance.$mount();
   document.body.appendChild(instance.$el);
 };
-HaToast.close = function () {
+haToast.close = function () {
   instance.close();
 };
 
-export default HaToast;
+export default haToast;

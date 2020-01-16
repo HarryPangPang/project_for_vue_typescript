@@ -12,7 +12,7 @@ import {
 } from 'vue-property-decorator';
 
 @Component
-export default class HaToast extends Vue {
+export default class haToast extends Vue {
   visable: Boolean = false;
 
   msg: String = '';
