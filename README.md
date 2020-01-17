@@ -49,13 +49,60 @@ yarn test:e2e
 yarn lint
 ```
 
+### vuex使用示例
+```
+<template>
+  <div class="home">
+    <div>{{msg}}</div>
+     <input placeholder="change" @keyup="handleChange" value=""/>username: {{username}}
+  </div>
+</template>
+
+<script lang='ts'>
+import { Component, Vue } from 'vue-property-decorator';
+import {
+  State,
+  Getter,
+  Action,
+  Mutation,
+  namespace,
+} from 'vuex-class';
+
+const homeStore = namespace('home');
+// 组件注册
+@Component({
+  name: 'Home',
+  components: {
+  },
+})
+
+
+export default class Home extends Vue {
+  private msg:string = 'hello'
+
+   @homeStore.State(state => state.username) private username!:string
+
+   @homeStore.Action('updateUsername') private updateUsername!:Function
+
+   handleChange(e:any) {
+     this.updateUsername(e.target.value);
+   }
+   // 生命周期函数
+
+   created() {
+
+   }
+}
+</script>
+```
+
 ### 包含内容
 1. 全局scss变量，从assets/css/index.scss引入
 2. 图片压缩
 3. js，css压缩
 4. 打包代码分离，按需加载页面
 5. 大于10240开启gzip打包
-6. 删除无用css
+6. 删除无用css(已取消，会丢失样式)
 7. 集成vconsole-webpack-plugin
 8. 启动thread-loader
 9. api集中在api/文件夹下，this.$api.xxxx调用
@@ -64,3 +111,4 @@ yarn lint
 12. http请求的lang和access_token需自己配置
 13. 组件默认全部集成，可在main.ts中修改成按需加载
 14. 默认airbnb eslint
+15. vuex-class集成，例子参考home
