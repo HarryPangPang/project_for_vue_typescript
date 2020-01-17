@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import Vue from 'vue';
 import axios, { AxiosStatic } from 'axios';
-import uiFeatures from '@/uiFeatures/index';
+import { haToast, haLoading } from '@/uiFeatures/index';
 
 const { CancelToken } = axios;
 
@@ -38,7 +38,7 @@ const regex = /.*csrftoken=([^;.]*).*$/; // 用于从cookie中匹配 csrftoken�
 
 // 错误处理
 const handleError = (errormsg:String) => {
-  uiFeatures.haToast({
+  haToast({
     visable: true,
     msg: errormsg,
   });
@@ -46,7 +46,7 @@ const handleError = (errormsg:String) => {
 
 // 请求加载框 如果不需要返回空
 const handleLoading = (visable:Boolean) => {
-  uiFeatures.haLoading({
+  haLoading({
     visable,
   });
 };

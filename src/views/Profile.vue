@@ -61,7 +61,7 @@
             May 29th 19
           </div>
           <div class="category">match</div>
-          <div class="details" @click="handleCheckDetail(item)">
+          <div class="details" @click="historyDetailVisable = true">
             chack
             <img src="../assets/images/Component 13 – 1.png" alt="" />
           </div>
@@ -70,7 +70,7 @@
     </div>
 
     <!-- 历史详情弹窗 -->
-    <Ha-modal :visable="historyDetailVisable" class="modal modal__detail">
+    <ha-dialog-box :visable="historyDetailVisable" class="modal modal__detail">
       <div slot="content" class="bugs__details">
         <h1>{text_bug_title}</h1>
         <p>{text_bug_sub}</p>
@@ -93,14 +93,20 @@
           {text_bug_ok}
         </div>
       </div>
-    </Ha-modal>
+    </ha-dialog-box>
   </div>
 </template>
 
 <script lang="ts">
+
+
 import { Component, Vue } from 'vue-property-decorator';
 
-@Component
+@Component({
+  components: {
+
+  },
+})
 export default class Profile extends Vue {
   historyDetailVisable: boolean = false;
 

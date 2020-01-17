@@ -49,7 +49,7 @@ module.exports = {
   parallel: require('os').cpus().length > 1,
 
   // 生产环境是否生成 sourceMap 文件，一般情况不建议打开
-  productionSourceMap: false,
+  productionSourceMap: true,
 
   // webpack配置
   // 对内部的 webpack 配置进行更细粒度的修改 https://github.com/neutrinojs/webpack-chain
@@ -153,45 +153,45 @@ module.exports = {
       );
     }
     // 公共代码抽离
-    config.optimization = {
-      splitChunks: {
-        cacheGroups: {
-          vendor: {
-            chunks: 'all',
-            test: /node_modules/,
-            name: 'vendor',
-            minChunks: 1,
-            maxInitialRequests: 5,
-            minSize: 0,
-            priority: 100,
-          },
-          common: {
-            chunks: 'all',
-            test: /[\\/]src[\\/]js[\\/]/,
-            name: 'app',
-            minChunks: 2,
-            maxInitialRequests: 5,
-            minSize: 0,
-            priority: 60,
-          },
-          styles: {
-            name: 'styles',
-            test: /\.(sa|sc|c)ss$/,
-            chunks: 'all',
-            enforce: true,
-          },
-          runtimeChunk: {
-            name: 'manifest',
-          },
-        },
-      },
-    };
-    if (isProduction) {
-      // 为生产环境修改配置
-      config.plugins = [...config.plugins, ...pluginsPro];
-    } else {
-      // 为开发环境修改配置
-      config.plugins = [...config.plugins, ...pluginsDev];
-    }
+    // config.optimization = {
+    //   splitChunks: {
+    //     cacheGroups: {
+    //       vendor: {
+    //         chunks: 'all',
+    //         test: /node_modules/,
+    //         name: 'vendor',
+    //         minChunks: 1,
+    //         maxInitialRequests: 5,
+    //         minSize: 0,
+    //         priority: 100,
+    //       },
+    //       common: {
+    //         chunks: 'all',
+    //         test: /[\\/]src[\\/]js[\\/]/,
+    //         name: 'app',
+    //         minChunks: 2,
+    //         maxInitialRequests: 5,
+    //         minSize: 0,
+    //         priority: 60,
+    //       },
+    //       styles: {
+    //         name: 'styles',
+    //         test: /\.(sa|sc|c)ss$/,
+    //         chunks: 'all',
+    //         enforce: true,
+    //       },
+    //       runtimeChunk: {
+    //         name: 'manifest',
+    //       },
+    //     },
+    //   },
+    // };
+    // if (isProduction) {
+    //   // 为生产环境修改配置
+    //   config.plugins = [...config.plugins, ...pluginsPro];
+    // } else {
+    //   // 为开发环境修改配置
+    //   config.plugins = [...config.plugins, ...pluginsDev];
+    // }
   },
 };
