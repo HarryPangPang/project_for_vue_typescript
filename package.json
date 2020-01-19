@@ -8,15 +8,18 @@
     "tpl": "node buildhelper/tplbuilder.js",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "ss": "serve -s ./dist"
   },
   "dependencies": {
     "axios": "^0.19.1",
     "vue": "^2.6.10",
+    "vue-analytics": "^5.22.1",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.3.0",
     "vue-router": "^3.1.3",
-    "vuex": "^3.1.2"
+    "vuex": "^3.1.2",
+    "vuex-class": "^0.3.2"
   },
   "devDependencies": {
     "@types/jest": "^24.0.19",
@@ -40,6 +43,7 @@
     "ora": "^4.0.3",
     "purgecss-webpack-plugin": "^1.6.0",
     "sass-loader": "^8.0.0",
+    "serve": "^11.3.0",
     "sharp": "^0.23.4",
     "typescript": "~3.5.3",
     "uglifyjs-webpack-plugin": "^2.2.0",

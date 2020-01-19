@@ -30,7 +30,7 @@ let requestFlag:string = '';
 
 /* 创建axios实例 */
 const service = axios.create({
-  timeout: 3000, // 请求超时时间
+  timeout: 10000, // 请求超时时间
   baseURL: BASE_URL,
   withCredentials: true,
 });

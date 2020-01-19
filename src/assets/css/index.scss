@@ -1,9 +1,9 @@
-@import './reset.scss';
-@import './fonts.scss';
-@import './mixins.scss';
-@import './component.scss';
-@import './animation.scss';
-@import './multi-lang-hack.scss';
+@import 'reset';
+@import 'fonts-variable';
+@import 'mixins';
+@import 'component';
+@import 'animation';
+@import 'multi-lang-hack';
 
 // 发布时删除
 // @import './images.scss';

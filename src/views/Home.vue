@@ -1,54 +1,42 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/images/logo.png" />
-    <div>{{title}}</div>
-    <h4 v-if="userData.player">{{userData.player.nickname}}</h4>
-    <button @click="goAbout">goAbout</button>
-    <HaDialog :visable.sync='visable'></HaDialog>
+    <div>{{computedLang}}</div>
+    <div>{{computedAccessToken}}</div>
   </div>
 </template>
 
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
+import {
+  State,
+  Getter,
+  Action,
+  Mutation,
+  namespace,
+} from 'vuex-class';
+import { getLangForTW } from '@/utils/utils';
 
+const homeStore = namespace('home');
 // 组件注册
 @Component({
   name: 'Home',
-  components: {
-  },
 })
 
+
 export default class Home extends Vue {
-// 这里就是data属性
-  visable:Boolean = true
+  // 获取语言
+  get computedLang() {
+    const lang = this.$route.query.lang || window.sessionStorage.getItem('Lang') || getLangForTW();
+    return lang;
+  }
+  // 获取token
 
-  userData:Object = {}
-
-  userinfo:Object = {}
-
-  private title:String = 'title'
-
-  private goAbout() {
-    this.$router.push('/about');
+  get computedAccessToken() {
+    return this.$route.query.access_token || window.sessionStorage.getItem('AccessToken') || '';
   }
   // 生命周期函数
 
-  created() {
-  }
-
   mounted() {
-    // this.$toast({
-    //   msg: 'This is Toast',
-    //   visable: false,
-    // });
-    this.$http.get(this.$api.userinfo).then((res:any) => {
-      this.userData = res.data.data;
-    });
   }
 }
 </script>
-<style lang="scss" scoped>
-.home{
-  text-align: center;
-}
-</style>

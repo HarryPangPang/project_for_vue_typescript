@@ -11,10 +11,9 @@ const routes = [
     component: Home,
   },
   {
-    path: '/about',
-    name: 'about',
-    //  code split and loadbale
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    // 会匹配所有路径
+    path: '*',
+    component: () => import(/* webpackChunkName: "404" */ '../views/common/404.vue'),
   },
 ];
 
