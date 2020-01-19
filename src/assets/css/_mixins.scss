@@ -150,47 +150,47 @@ $ui-height: 737px;
   #{$prop}: $remValues;
 }
 
-@mixin px2vh($prop, $values...) {
-  $max: length($values);
-  $ui-height: 736;
-  $vhValues: '';
+// @mixin px2vh($prop, $values...) {
+//   $max: length($values);
+//   $ui-height: 736;
+//   $vhValues: '';
 
-  @for $i from 1 through $max {
-    $value: nth($values, $i);
+//   @for $i from 1 through $max {
+//     $value: nth($values, $i);
 
-    @if (type-of($value) == string) or ($value == 0) {
-      $vhValues: #{$vhValues + $value};
-    } @else {
-      $vhValues: #{$vhValues + parseInt($value) / $ui-height * 100}vh;
-    }
+//     @if (type-of($value) == string) or ($value == 0) {
+//       $vhValues: #{$vhValues + $value};
+//     } @else {
+//       $vhValues: #{$vhValues + parseInt($value) / $ui-height * 100}vh;
+//     }
 
-    @if $i < $max {
-      $vhValues: #{$vhValues + ' '};
-    }
-  }
-  #{$prop}: $vhValues;
-}
+//     @if $i < $max {
+//       $vhValues: #{$vhValues + ' '};
+//     }
+//   }
+//   #{$prop}: $vhValues;
+// }
 
-@mixin px2vw($prop, $values...) {
-  $max: length($values);
-  $ui-width: 1282;
-  $vwValues: '';
+// @mixin px2vw($prop, $values...) {
+//   $max: length($values);
+//   $ui-width: 1282;
+//   $vwValues: '';
 
-  @for $i from 1 through $max {
-    $value: nth($values, $i);
+//   @for $i from 1 through $max {
+//     $value: nth($values, $i);
 
-    @if (type-of($value) == string) or ($value == 0) {
-      $vwValues: #{$vwValues + $value};
-    } @else {
-      $vwValues: #{$vwValues + parseInt($value) / ($ui-width / 100)}vw;
-    }
+//     @if (type-of($value) == string) or ($value == 0) {
+//       $vwValues: #{$vwValues + $value};
+//     } @else {
+//       $vwValues: #{$vwValues + parseInt($value) / ($ui-width / 100)}vw;
+//     }
 
-    @if $i < $max {
-      $vwValues: #{$vwValues + ' '};
-    }
-  }
-  #{$prop}: $vwValues;
-}
+//     @if $i < $max {
+//       $vwValues: #{$vwValues + ' '};
+//     }
+//   }
+//   #{$prop}: $vwValues;
+// }
 
 @mixin px2res($prop, $values...) {
   @include px2vh($prop, $values...);

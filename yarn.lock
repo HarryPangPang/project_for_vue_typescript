@@ -9013,6 +9013,13 @@ purgecss@^1.4.0:
     postcss-selector-parser "^6.0.0"
     yargs "^14.0.0"
 
+px2vwh-loader@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/px2vwh-loader/-/px2vwh-loader-1.0.2.tgz#7c7e50abaa4a5970022c99534f55e087bdd15d4b"
+  integrity sha512-SmyB6UiUA5pDHsuG6ltDhMHa9Gy6OuHV24T0jWNr+d54vXueS90OwSe9H6d60KZT1iasf38YGFXCCC9sTPE2WA==
+  dependencies:
+    loader-utils "^1.2.3"
+
 q@^1.1.2:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"

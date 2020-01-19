@@ -80,6 +80,17 @@ module.exports = {
       .loader('image-webpack-loader')
       .options({ bypassOnDebug: true })
       .end();
+    
+    config.module
+      .rule('px2vwh')
+      .test( /\.(sc|sa)ss$/)
+      .use('px2vwh-loader')
+      .loader('px2vwh-loader')
+      .options({
+        uiHeight:737,
+        uiWidth:1283
+      })
+      .end()
   },
 
   // 调整 webpack 配置

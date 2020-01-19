@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div>{{computedLang}}</div>
+    <div class="lang">{{computedLang}}</div>
     <div>{{computedAccessToken}}</div>
   </div>
 </template>
@@ -40,3 +40,11 @@ export default class Home extends Vue {
   }
 }
 </script>
+<style lang="scss" scoped>
+.home{
+  height:32px;
+  .lang{
+    height: 12px;
+  }
+}
+</style>
