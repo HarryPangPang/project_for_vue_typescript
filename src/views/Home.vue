@@ -1,5 +1,6 @@
 <template>
-  <div class="home">
+  <div id="home-lang" class="home" :data-lang="computedLang">
+    <Ha-header :title="'dsdsd'"></Ha-header>
     <div class="lang">{{computedLang}}</div>
     <div>{{computedAccessToken}}</div>
   </div>
@@ -36,7 +37,15 @@ export default class Home extends Vue {
   }
   // 生命周期函数
 
-  mounted() {
+  created() {
+    this.$http.get(
+      this.$api.userinfo,
+      { lang: this.computedLang, access_token: this.computedAccessToken },
+    ).then((res) => {
+      console.log(res);
+    }).catch((e:any) => {
+      console.warn(e);
+    });
   }
 }
 </script>

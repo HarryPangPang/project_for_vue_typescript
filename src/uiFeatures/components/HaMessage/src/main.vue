@@ -22,9 +22,9 @@ import {
 } from 'vue-property-decorator';
 
 @Component({
-  name: 'HaDialog',
+  name: 'HaMessage',
 })
-export default class HaDialog extends Vue {
+export default class HaMessage extends Vue {
     @PropSync('visable', {
       type: Boolean,
       default: false,

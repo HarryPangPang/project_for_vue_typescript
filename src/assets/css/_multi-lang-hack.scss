@@ -1,6 +1,6 @@
 // 特殊处理
 // 越南语
-#app[data-lang=vi],#app[data-lang=vn],#app[data-lang=ru]{
+#home-lang[data-lang=vi],#app[data-lang=vn],#app[data-lang=ru]{
   font-family: $vnru-font-family !important;
   .region ul p,
   .home-warp .left,
@@ -23,7 +23,7 @@
   }
 }
 // 繁体字
-#app[data-lang=zh],#app[data-lang=zh-tw]{
+#home-lang[data-lang=zh],#app[data-lang=zh-tw]{
   font-family: $zh-font-family !important;
   .region ul p,
   .home-warp .left,

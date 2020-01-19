@@ -13,6 +13,14 @@
 <style lang="scss" scoped>
 #app{
   font-family: $font-family;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #fff;
+  width: 100vw;
+  background: #070e24;
+  height: 100vh;
+  // transform:scale(1);
+  overflow: hidden;
 }
 @media screen and (max-width: 768px) and (orientation: portrait) {
   .wp_pop {

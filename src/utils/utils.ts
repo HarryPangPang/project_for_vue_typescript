@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  *
  * @param {*} error
@@ -197,4 +198,106 @@ export const getRegionLang = (region:string = 'US', lang:string = 'en') => {
     regionLang = region === 'EU' ? `EUROPE_${lang}` : `${region}_${lang}`;
   }
   return regionLang;
+};
+/**
+ *
+ * @param time
+ * 获取时间
+ */
+export const getCusTime = (time:number) => {
+  if (!time) {
+    return '--';
+  }
+  const times = new Date(time * 1000);
+  const month = times.toDateString().split(' ')[1];
+  const day = times.toDateString().split(' ')[2];
+  const hours = times.getHours();
+  const minutes = times.getMinutes();
+  const ampm = hours >= 12 ? 'pm' : 'am';
+  return times.toLocaleString();
+  //   month + "\v" + day + "\v" + "at" + "\v" + hours + ":" + minutes + ampm
+};
+/**
+ *
+ * @param {*} vm
+ * @param {*} dom
+ * @param {*} type height/width
+ * @param {*} plus 扩展数值
+ * @param {*} fn
+ */
+export const judeOverflow = (vm:any, dom:any, type:any, plus:any, fn:any) => {
+  let timer:any;
+  vm.$nextTick(() => {
+    timer = setTimeout(() => {
+      if (type === 'height') {
+        // console.log(dom.clientHeight)
+        // console.log(dom.scrollHeight)
+        if (dom.clientHeight + plus < dom.scrollHeight) {
+          fn();
+        }
+      }
+      if (type === 'width') {
+        if (dom.clientWidth + plus < dom.scrollWidth) {
+          fn();
+        }
+      }
+      clearTimeout(timer);
+      timer = null;
+    }, 300);
+  });
+};
+/**
+ * 判断手机类型
+ */
+export const checkMobileAgent = () => {
+  const u = window.navigator.userAgent; const
+    app = navigator.appVersion;
+  return {
+    trident: u.indexOf('Trident') > -1, // IE内核
+    presto: u.indexOf('Presto') > -1, // opera内核
+    webKit: u.indexOf('AppleWebKit') > -1, // 苹果、谷歌内核
+    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') === -1, // 火狐内核
+    mobile: !!u.match(/AppleWebKit.*Mobile.*/), // 是否为移动终端
+    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), // ios终端
+    android: u.indexOf('Android') > -1 || u.indexOf('Adr') > -1, // android终端
+    iPhone: u.indexOf('iPhone') > -1, // 是否为iPhone或者QQHD浏览器
+    iPad: u.indexOf('iPad') > -1, // 是否iPad
+    webApp: u.indexOf('Safari') === -1, // 是否web应该程序，没有头部与底部
+    weixin: u.indexOf('MicroMessenger') > -1, // 是否微信
+    // eslint-disable-next-line eqeqeq
+    // qq: u.match(/\sQQ/i) === ' qq', // 是否QQ
+  };
+};
+/**
+ * 判断浏览器类型
+ */
+export const checkUserAgent = () => {
+  const naviVersion = window.navigator.userAgent;
+  let sBrowser;
+  const sUsrAg = navigator.userAgent;
+
+  // The order matters here, and this may report false positives for unlisted browsers.
+
+  if (sUsrAg.indexOf('Firefox') > -1) {
+    sBrowser = 'Mozilla Firefox';
+    // "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0"
+  } else if (sUsrAg.indexOf('Opera') > -1 || sUsrAg.indexOf('OPR') > -1) {
+    sBrowser = 'Opera';
+    // "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 OPR/57.0.3098.106"
+  } else if (sUsrAg.indexOf('Trident') > -1) {
+    sBrowser = 'Microsoft Internet Explorer';
+    // "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; Zoom 3.6.0; wbx 1.0.0; rv:11.0) like Gecko"
+  } else if (sUsrAg.indexOf('Edge') > -1) {
+    sBrowser = 'Microsoft Edge';
+    // "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299"
+  } else if (sUsrAg.indexOf('Chrome') > -1) {
+    sBrowser = 'Google Chrome or Chromium';
+    // "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36"
+  } else if (sUsrAg.indexOf('Safari') > -1) {
+    sBrowser = 'Apple Safari';
+    // "Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
+  } else {
+    sBrowser = 'unknown';
+  }
+  return naviVersion;
 };

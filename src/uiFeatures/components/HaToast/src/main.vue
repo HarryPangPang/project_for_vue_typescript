@@ -43,13 +43,11 @@ export default class HaToast extends Vue {
     position: absolute;
     left: 50%;
     top: 50%;
-    @include res-size(
-      $width:880px,
-      $height:70px,
-      $line-height:70px,
-      $margin-left:-440px
-    );
-    @include res-size($font-size: 30px);
+      width:880px;
+      height:70px;
+      line-height:70px;
+      margin-left:-440px;
+    font-size: 30px;
     z-index: 12;
   }
 }

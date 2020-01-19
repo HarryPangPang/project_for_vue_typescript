@@ -1,11 +1,17 @@
 import HaToast from './components/HaToast/index';
 import HaDialog from './components/HaDialog/index';
 import HaLoading from './components/HaLoading/index';
+import HaHeader from './components/HaHeader/index';
+import HaMessage from './components/HaMessage/index';
 
 const components = [
   {
     name: 'HaDialog',
     value: HaDialog,
+  },
+  {
+    name: 'HaHeader',
+    value: HaHeader,
   },
 ];
 // eslint-disable-next-line func-names
@@ -28,5 +34,5 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default { install };
 export {
-  HaLoading, HaDialog, HaToast,
+  HaLoading, HaDialog, HaToast, HaHeader, HaMessage,
 };
