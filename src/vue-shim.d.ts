@@ -7,6 +7,7 @@ declare module 'vue/types/vue' {
     $router: VueRouter,
     $toast:any,
     $http: HttpScheme,
-    $api:any
+    $api:any,
+    $anime:any
   }
 }

@@ -8,7 +8,7 @@ module.exports = function (source) {
     const uiHeight = options.uiHeight ||737
     const uiWidth = options.uiWidth || 1283
     const decimal = options.decimal || 3
-    // this.cacheable();
+    this.cacheable();
     let sources = source
     // /([0-9.]+px)([;,| |}|'|"\)\r|\n])/g;
     const pxReg = /([0-9.]+px)([;,| |}|'|"\r|\n])/g;

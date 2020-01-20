@@ -291,7 +291,6 @@ export default class HaHeader extends Vue {
                     height:32px;
                     border-radius:32px;
                     margin-left:12px;
-            
 
             }
         }

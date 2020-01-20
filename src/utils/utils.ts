@@ -1,3 +1,5 @@
+import { timeFn } from 'vue-analytics';
+
 /* eslint-disable max-len */
 /**
  *
@@ -300,4 +302,56 @@ export const checkUserAgent = () => {
     sBrowser = 'unknown';
   }
   return naviVersion;
+};
+
+
+/**
+ *
+ * @param endTime 结束时间
+ * 返回倒计时时间，用法
+ *  setInterval(() => {
+      const result = getTimeLeft(1602374400);
+      this.countTime.DAYS = result.DAYS;
+      this.countTime.HOURS = result.HOURS;
+      this.countTime.MINUTES = result.MINUTES;
+      this.countTime.SECONDS = result.SECONDS;
+    }, 1000);
+ */
+export const getTimeLeft = (endTime:number) => {
+  let nowDate:number; let endDate:number; let timer:any; let leftTime:number;
+  let d:any; let h:any; let m:any; let s:any;
+
+  function addZero(i:number) {
+    if (i < 10) {
+      return `0${i}`;
+    }
+    return i;
+  }
+  // eslint-disable-next-line prefer-const
+  nowDate = new Date().getTime();
+  // eslint-disable-next-line prefer-const
+  endDate = endTime * 1000;
+  if (endDate < nowDate) {
+    clearInterval(timer);
+    timer = null;
+    return {
+      DAYS: 0,
+      HOURS: 0,
+      MINUTES: 0,
+      SECONDS: 0,
+    };
+  }
+  if (endDate > nowDate) {
+    leftTime = (endDate - nowDate) / 1000;
+    d = Math.floor(leftTime / (24 * 60 * 60));
+    h = addZero(Math.floor((leftTime / (60 * 60)) % 24));
+    m = addZero(Math.floor((leftTime / 60) % 60));
+    s = addZero(Math.floor(leftTime % 60));
+  }
+  return {
+    DAYS: d,
+    HOURS: h,
+    MINUTES: m,
+    SECONDS: s,
+  };
 };

@@ -12,6 +12,7 @@
     "ss": "serve -s ./dist"
   },
   "dependencies": {
+    "animejs": "^3.1.0",
     "axios": "^0.19.1",
     "vue": "^2.6.10",
     "vue-analytics": "^5.22.1",
@@ -22,6 +23,7 @@
     "vuex-class": "^0.3.2"
   },
   "devDependencies": {
+    "@types/animejs": "^3.1.0",
     "@types/jest": "^24.0.19",
     "@vue/cli-plugin-e2e-cypress": "^4.1.0",
     "@vue/cli-plugin-eslint": "^4.1.0",

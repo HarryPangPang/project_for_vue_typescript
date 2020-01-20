@@ -64,3 +64,54 @@ yarn lint
 12. http请求的lang和access_token需自己配置
 13. 组件默认全部集成，可在main.ts中修改成按需加载
 14. 默认airbnb eslint
+15. vuex-class集成，例子参考：
+```
+<template>
+  <div class="home">
+    <div>{{msg}}</div>
+     <input placeholder="change" @keyup="handleChange" value=""/>username: {{username}}
+  </div>
+</template>
+
+<script lang='ts'>
+import { Component, Vue } from 'vue-property-decorator';
+import {
+  State,
+  Getter,
+  Action,
+  Mutation,
+  namespace,
+} from 'vuex-class';
+
+const homeStore = namespace('home');
+// 组件注册
+@Component({
+  name: 'Home',
+  components: {
+  },
+})
+
+
+export default class Home extends Vue {
+  private msg:string = 'hello'
+
+   @homeStore.State(state => state.username) private username!:string
+
+   @homeStore.Action('updateUsername') private updateUsername!:Function
+
+   handleChange(e:any) {
+     this.updateUsername(e.target.value);
+   }
+   // 生命周期函数
+
+   created() {
+   }
+}
+</script>
+
+```
+
+
+CHANGELOG:
+
+1. 
