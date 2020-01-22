@@ -1,99 +1,78 @@
 <template>
-  <div class="mask" v-show="visable">
-    <div class="dialog outter-dialog common-dialog fadeInUp animated ">
-      <div class="warp">
-        <div class="close">
-          <i
-            @click="close"
-            class="icon-cross"
-          >X</i>
-        </div>
-        <div class="content">
-          <slot name="content"></slot>
-        </div>
-      </div>
+  <div class="ha-message-warp mask" v-show="visable">
+    <div class="ha-message-content center">
+      <div class="content">{{ msg }}</div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import {
-  Component, Prop, Vue, PropSync, Watch, Emit,
+  Component, Prop, Vue, PropSync, Watch,
 } from 'vue-property-decorator';
 
-@Component({
-  name: 'HaMessage',
-})
-export default class HaMessage extends Vue {
-    @PropSync('visable', {
-      type: Boolean,
-      default: false,
-      required: true,
-    }) syncedVisable !: Boolean
+@Component
+export default class HaMessaeg extends Vue {
+  visable: Boolean = false;
 
-    @Prop({
-      type: Function,
-      default: undefined,
-      required: false,
-    }) beforeClose ?: Function
+  msg: String = '';
 
-     @Prop({
-       type: Function,
-       default: undefined,
-       required: false,
-     }) afterClose ?: Function
+  onClose?: Function;
 
-     hide() {
-       this.syncedVisable = false;
-     }
+  delay?:number;
 
-     close(): void {
-       if (this.beforeClose && typeof this.beforeClose === 'function') {
-         this.beforeClose(this);
-         return;
-       }
-       this.hide();
-       if (this.afterClose && typeof this.afterClose === 'function') {
-         this.afterClose(this);
-       }
-     }
+  close(): void {
+    this.visable = false;
+    if (this.onClose && typeof this.onClose === 'function') {
+      this.onClose(this);
+    }
+  }
+
+  mounted() {
+    if (this.delay && this.delay > 0 && this.visable) {
+      const timer = setTimeout(() => {
+        this.visable = false;
+        clearTimeout(timer);
+      }, this.delay);
+    }
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.warp {
-  max-height: 80%;
-  position: relative;
-  color: #fff;
-  background-color: #fff;
-  .close {
-    .icon-cross {
-      position: absolute;
-      z-index: 2;
-      top: 0;
-      background-repeat: no-repeat;
-        left: -90px;
-        width: 65px;
-        height: 65px;
-        background-size: 65px;
-    }
-  }
-   .can-scoll-y{
-      width: 100%;
-      height: 100%;
-      word-break: break-word;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-  .content {
+.ha-message-warp {
+  font-family: $font-family;
+  color: #fff7e1;
+  font-size: 30px;
+  font-weight: 600;
+  font-style:normal;
+  .ha-message-content {
     background-repeat: no-repeat;
-    position: relative;
     background-size: 100% 100%;
-      padding:45px;
-      font-size:26px;
-      width: 895px;
-      height: 530px;
+    background-image: url('../../../../assets/images/dialogBg.png');
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 821px;
+    height: 484px;
+    margin-left: -440px;
+    margin-top: -242px;
+
+    z-index: 12;
+    .content{
+      font-size: 30px;
+      margin: 40px;
+      word-break: break-word;
+    }
   }
+  .center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    }
 }
 </style>

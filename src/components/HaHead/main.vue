@@ -1,17 +1,17 @@
 <template>
-  <div class="_header_warp font-1">
-    <div class="_head_left ">uid:312312312</div>
+  <div class="_header_warp font-1" v-if="info">
+    <div class="_head_left ">uid:{{info.uid}}</div>
     <div class="_head_title">
       <span class="_head_text font-2">Black Friday Sales</span>
     </div>
     <div class="_head_right">
       <div class="_head_label">
         <i class="_doller1"></i>
-        <span>9999</span>
+        <span>{{info.repair_token}}</span>
       </div>
       <div class="_head_label">
         <i class="_doller1"></i>
-        <span>9999</span>
+        <span>{{info.draw_token}}</span>
       </div>
     </div>
   </div>
@@ -19,6 +19,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import {
+  State, Getter, Action, Mutation, namespace,
+} from 'vuex-class';
+
+const homeStore = namespace('home');
 
 @Component(
   {
@@ -27,8 +32,7 @@ import { Component, Vue } from 'vue-property-decorator';
 )
 
 export default class Hahead extends Vue {
-  mounted() {
-  }
+  @homeStore.State(state => state.info) private info:any
 }
 </script>
 <style lang="scss" scoped>

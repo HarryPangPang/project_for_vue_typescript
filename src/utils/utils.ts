@@ -355,3 +355,18 @@ export const getTimeLeft = (endTime:number) => {
     SECONDS: s,
   };
 };
+
+// 重新排序数组对象
+// eslint-disable-next-line consistent-return
+export const resortArraryObject = (arr:[], name:string) => {
+  if (arr.length < 2) {
+    return arr;
+  }
+  const tmpArrary = JSON.parse(JSON.stringify(arr));
+  tmpArrary.sort((a:any, b:any) => {
+    if (a[name] > b[name]) return 1;
+    if (a[name] < b[name]) return -1;
+    return 0;
+  });
+  return tmpArrary;
+};

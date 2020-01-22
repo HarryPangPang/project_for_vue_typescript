@@ -1,5 +1,5 @@
 <template>
-  <div id="home-lang" class="home" :data-lang="computedLang">
+  <div id="home-lang" class="home" :data-lang="computedLang" v-if="info">
     <!-- 头部 -->
     <HaHead></HaHead>
     <div class="main">
@@ -7,13 +7,15 @@
     <div class="__left">
       <!-- 进度条 -->
      <div class="_process_warp">
-       <Ha-process :percent='100'>
+       <Ha-process :percent='info.percentage' v-if="computedStages&&computedStages.length>0">
          <template slot="content">
+           <!-- 百分比 -->
            <div class="_process_percent font-1">
-           <div class="_percent_1">10%</div>
-           <div class="_percent_2">10%</div>
-           <div class="_percent_3">10%</div>
+           <div class="_percent_1">{{computedStages[0]['percentage']}}%</div>
+           <div class="_percent_2">{{computedStages[1]['percentage']}}%</div>
+           <div class="_percent_3">{{computedStages[2]['percentage']}}%</div>
          </div>
+         <!-- 进度条物品 -->
          <div class="_process_item_warp">
 
            <div class="_process_item">
@@ -23,12 +25,12 @@
 
           <div class="_process_item _process_item2 _process_item_can">
            <img :src="test2"/>
-            <HaMarquee class="_item_name font-3">312312312</HaMarquee>
+            <HaMarquee class="_item_name font-3" :text="32131233123"></HaMarquee>
           </div>
 
           <div class="_process_item _process_item3 _process_item_ed">
            <img :src="test2"/>
-            <div class="_item_name font-3"></div>
+           <HaMarquee class="_item_name font-3" :text="'大蒜大蒜'"></HaMarquee>
           </div>
 
          </div>
@@ -43,6 +45,14 @@
           <div class="_repair_2"></div>
           <div class="_repair_light "></div>
           <div class="_repair_breathe breathe"></div>
+        </div>
+        <!-- 抽奖 -->
+        <div class="_reparir_btn font-3" @click="eventRepair">
+          <div class="_repair_content">CHARGE UP</div>
+        </div>
+        <div class="_repair_cost">
+          <i class="_diamond"></i>
+          <span class="_cost">{{info.left_free_num>0 ? 'free' : info.repair_cost}}</span>
         </div>
       </div>
     </div>
@@ -87,7 +97,7 @@ import HaProcess from '@/components/HaProcess/main.vue';
 import HaSquareDraw from '@/components/HaSquareDraw/main.vue';
 import { getLangForTW, getTimeLeft } from '@/utils/utils';
 
-const test2  = require('../assets/images/test2.png');
+const test2 = require('../assets/images/test2.png');
 
 const homeStore = namespace('home');
 // 组件注册
@@ -115,15 +125,29 @@ export default class Home extends Vue {
     SECONDS: 0,
   };
 
+  @homeStore.State(state => state.info) private info:any
+
+  @homeStore.Action('getInfo') private getInfo!:Function
+
+  @homeStore.Action('repair') private repair!:Function
+
   // 获取语言
   get computedLang() {
     const lang = this.$route.query.lang || window.sessionStorage.getItem('Lang') || getLangForTW();
     return lang;
   }
-  // 获取token
 
+  // 获取token
   get computedAccessToken() {
     return this.$route.query.access_token || window.sessionStorage.getItem('AccessToken') || '';
+  }
+
+  // 获取阶段
+  get computedStages() {
+    if (this.info && this.info.stages && this.info.stages.length > 0) {
+      return this.info.stages;
+    }
+    return [];
   }
 
   setCountDown() {
@@ -136,19 +160,20 @@ export default class Home extends Vue {
     }, 1000);
   }
 
+  eventRepair() {
+    if (this.info.left_free_num > 0) {
+      this.repair();
+    }
+  }
+
   // 生命周期函数
 
   created() {
-    // this.$refs.draw.startRoll()
+    this.getInfo({
+      lang: this.computedLang,
+      access_token: this.computedAccessToken,
+    });
     this.setCountDown();
-    this.$http
-      .get(this.$api.userinfo, { lang: this.computedLang, access_token: this.computedAccessToken })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e: any) => {
-        console.warn(e);
-      });
   }
 }
 </script>
@@ -210,12 +235,13 @@ export default class Home extends Vue {
            margin-left: 20px;
          }
          ._item_name{
+           text-align: center;
            font-size: 20px;
            position: absolute;
            left: 20px;
            bottom:-30px;
            width: 110px;
-           height: 20px;
+           height: 30px;
          }
       }
       ._process_item2{
@@ -235,6 +261,53 @@ export default class Home extends Vue {
     ._repair_warp{
       width: 368px;
       height: 499px;
+      position: relative;
+      ._reparir_btn{
+        color: #261c0e;
+        font-size: 36px;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include bgc();
+        width: 285px;
+        height: 97px;
+        background-image: url('../assets/images/btn.png');
+        left: 40px;
+        bottom: -15px;
+        z-index: 3;
+        text-align: center;
+        ._repair_content{
+          margin: 0 auto;
+          width: 252px;
+          height: 60px;
+          line-height: 30px;
+          @include ellipsis-line-middle(2,'center');
+        }
+      }
+      ._repair_cost{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include bgc();
+        width: 285px;
+        height: 40px;
+        left: 40px;
+        bottom: -50px;
+        font-family: $sub-font-family;
+        color: #fff;
+        ._diamond{
+          display: inline-block;
+          @include bgc();
+          width: 30px;
+          height: 26px;
+          background-image: url('../assets/images/diamondIcon.png');
+        }
+        ._cost{
+          display: inline-block;
+        }
+      }
       ._repair_main{
         position: relative;
         width: 100%;

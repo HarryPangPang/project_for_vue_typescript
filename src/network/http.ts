@@ -105,5 +105,7 @@ service.interceptors.response.use(
 const install = () => {
   Vue.prototype.$http = service;
 };
-
+const http = service;
 export default { install };
+
+export { http };

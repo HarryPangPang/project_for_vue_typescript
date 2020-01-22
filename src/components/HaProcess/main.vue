@@ -9,7 +9,11 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import {
+  State, Getter, Action, Mutation, namespace,
+} from 'vuex-class';
 
+const homeStore = namespace('home');
 @Component(
   {
     name: 'HaProcess',
@@ -17,19 +21,42 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 )
 
 export default class HaProcess extends Vue {
+  @homeStore.State(state => state.info) private info:any
+
   @Prop() percent!:number
 
   get processCalc() {
     this.$nextTick(() => {
-      this.processCtrl(this.percent);
+      this.processCtrl(100 - this.getPercent - 2);
     });
     return '';
+  }
+
+  get getPercent() {
+    const x1 = this.info.stages[0].percentage;
+    const x2 = this.info.stages[1].percentage;
+    const x3 = this.info.stages[2].percentage;
+    const a = ((this.percent - 0) / x1) * 33;
+    const b = ((this.percent - x1) / (x2 - x1)) * 33;
+    const c = ((this.percent - x2) / (x3 - x2)) * 34;
+    if (this.info && this.info.stages) {
+      if (this.percent > 0 && (this.percent < x1 || this.percent === x1)) {
+        return a;
+      }
+      if (this.percent > 0 && (this.percent < x2 || this.percent === x2)) {
+        return 33 + b;
+      }
+      if (this.percent > 0 && (this.percent < x3 || this.percent === x3)) {
+        return 66 + c;
+      }
+    }
+    return 0;
   }
 
   processCtrl(height:number) {
     this.$anime({
       targets: '.__process_black',
-      height: `${(100 - height).toString()}%`,
+      height: `${(height).toString()}%`,
       easing: 'easeInOutQuad',
       direction: 'normal',
       loop: false,

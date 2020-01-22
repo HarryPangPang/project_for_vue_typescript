@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import HaToast from './components/HaToast/index';
 import HaDialog from './components/HaDialog/index';
 import HaLoading from './components/HaLoading/index';
@@ -37,8 +38,8 @@ const install = function (Vue: any, options = {}) {
   components.forEach((component) => {
     Vue.component(component.name, component.value);
   });
-  // eslint-disable-next-line no-param-reassign
   Vue.prototype.$toast = HaToast;
+  Vue.prototype.$message = HaMessage;
 };
 declare global {
   interface Window {

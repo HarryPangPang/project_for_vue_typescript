@@ -2,6 +2,7 @@
   <!-- 抽奖 -->
   <div class="__draw_warp">
     <div class="__draw __draw_1">
+      <img :src="test2" class="_draw_item"/>
       <div :class="{'__current':current===1}"></div>
     </div>
     <div class="__draw __draw_2">
@@ -19,11 +20,22 @@
     <div class="__draw __draw_6">
       <div :class="{'__current':current===6}"></div>
     </div>
+
+    <!-- 抽奖 -->
+    <div class="_draw_btn font-3">
+          <div class="_draw_content">CHARGE UP</div>
+        </div>
+        <div class="_draw_cost">
+          <i class="_diamond"></i>
+          <span class="_cost">8888</span>
+        </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+
+const test2 = require('../../assets/images/test1.png');
 
 @Component({
   name: 'HaSquareDraw',
@@ -32,6 +44,8 @@ export default class HaSquareDraw extends Vue {
   current:any = 0
 
   speed:number = 100
+
+  test2 = test2
 
   catchResult:any = false
 
@@ -108,12 +122,61 @@ export default class HaSquareDraw extends Vue {
   height: 560px;
   @include bgc();
   background-image: url('../../assets/images/rightBg.png');
+  ._draw_btn{
+        color: #261c0e;
+        font-size: 36px;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include bgc();
+        width: 285px;
+        height: 97px;
+        background-image: url('../../assets/images/btn2.png');
+        top: 216px;
+        left: 205px;
+        z-index: 3;
+        text-align: center;
+        ._draw_content{
+          margin: 0 auto;
+          width: 252px;
+          height: 60px;
+          line-height: 30px;
+          @include ellipsis-line-middle(2,'center');
+        }
+      }
+      ._draw_cost{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include bgc();
+        width: 285px;
+        height: 40px;
+        top: 316px;
+        left: 205px;
+        font-family: $sub-font-family;
+        color: #fff;
+        ._diamond{
+          display: inline-block;
+          @include bgc();
+          width: 30px;
+          height: 26px;
+          background-image: url('../../assets/images/diamondIcon.png');
+        }
+        ._cost{
+          display: inline-block;
+        }
+      }
   .__draw{
     position: absolute;
     width: 152px;
     @include bgc();
     background-image: url('../../assets/images/itemBg.png');
     height: 147px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &_1{
       top: 71px;
       left: 197px;
@@ -138,11 +201,17 @@ export default class HaSquareDraw extends Vue {
       top: 221px;
       left: 46px;
     }
+    ._draw_item{
+      width: 66px;
+      display: inline-block;
+    }
   }
   .__current{
-    position: relative;
+    position: absolute;
     width: 100%;
     height: 100%;
+    left: 0;
+    top: 0;
     &::after{
       position: absolute;
       @include bgc();
