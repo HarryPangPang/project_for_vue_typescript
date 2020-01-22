@@ -1,12 +1,24 @@
 <template>
   <!-- 抽奖 -->
   <div class="__draw_warp">
-    <div class="__draw __drwa_1" :class="{'__current':current===1}"></div>
-    <div class="__draw __drwa_2" :class="{'__current':current===2}"></div>
-    <div class="__draw __drwa_3" :class="{'__current':current===3}"></div>
-    <div class="__draw __drwa_4" :class="{'__current':current===4}"></div>
-    <div class="__draw __drwa_5" :class="{'__current':current===5}"></div>
-    <div class="__draw __drwa_6" :class="{'__current':current===6}"></div>
+    <div class="__draw __draw_1">
+      <div :class="{'__current':current===1}"></div>
+    </div>
+    <div class="__draw __draw_2">
+      <div :class="{'__current':current===2}"></div>
+    </div>
+    <div class="__draw __draw_3">
+      <div :class="{'__current':current===3}"></div>
+    </div>
+    <div class="__draw __draw_4" >
+      <div :class="{'__current':current===4}"></div>
+    </div>
+    <div class="__draw __draw_5">
+      <div :class="{'__current':current===5}"></div>
+    </div>
+    <div class="__draw __draw_6">
+      <div :class="{'__current':current===6}"></div>
+    </div>
   </div>
 </template>
 
@@ -81,29 +93,64 @@ export default class HaSquareDraw extends Vue {
   }
 
   created() {
-    // this.start();
+    this.start();
 
-    // setTimeout(() => {
-    //   this.catchResult = true;
-    // }, 3000);
+    setTimeout(() => {
+      this.catchResult = true;
+    }, 3000);
   }
 }
 </script>
 <style lang="scss" scoped>
 .__draw_warp{
-  display: flex;
   position: relative;
-  flex-wrap: wrap;
-  width: 210px;
-  height: 300px;
+  width: 689px;
+  height: 560px;
+  @include bgc();
+  background-image: url('../../assets/images/rightBg.png');
   .__draw{
-    margin: 10px;
-    background-color: #fff;
-    width: 80px;
-    height: 80px;
+    position: absolute;
+    width: 152px;
+    @include bgc();
+    background-image: url('../../assets/images/itemBg.png');
+    height: 147px;
+    &_1{
+      top: 71px;
+      left: 197px;
+    }
+    &_2{
+      top: 71px;
+      left: 352px;
+    }
+    &_3{
+      top: 221px;
+      left: 502px;
+    }
+    &_4{
+      top: 364px;
+      left: 354px;
+    }
+    &_5{
+      top: 364px;
+      left: 197px;
+    }
+    &_6{
+      top: 221px;
+      left: 46px;
+    }
   }
   .__current{
-    background-color: rgb(78, 13, 13);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    &::after{
+      position: absolute;
+      @include bgc();
+      content: '';
+      width: 100%;
+      height: 100%;
+      background-image: url('../../assets/images/itemChosen.png');
+    }
   }
 }
 </style>

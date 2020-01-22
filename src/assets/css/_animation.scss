@@ -306,3 +306,26 @@
   transform-origin: center bottom;
   animation-duration: 1s;
 }
+
+@keyframes breathLight {
+  0% {
+      opacity: 1;
+      filter: brightness(0.6);
+  }
+  50% {
+      opacity: 1;
+      filter: brightness(1.8);
+  }
+  100% {
+      opacity: 1;
+      filter: brightness(0.6);
+  }
+}
+
+.breathe{
+  -webkit-animation: breathLight 1.8s linear infinite;
+  -moz-animation: breathLight 1.8s linear infinite;
+  -o-animation: breathLight 1.8s linear infinite;
+  animation: breathLight 1.8s linear infinite;
+
+}

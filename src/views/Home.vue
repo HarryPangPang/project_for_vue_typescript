@@ -1,21 +1,78 @@
 <template>
   <div id="home-lang" class="home" :data-lang="computedLang">
     <!-- 头部 -->
-    <Ha-header></Ha-header>
-    <!-- 左侧 -->
-    <div class="__left" v-visibility="false">
-      <Ha-process></Ha-process>
+    <HaHead></HaHead>
+    <div class="main">
+      <!-- 左侧 -->
+    <div class="__left">
+      <!-- 进度条 -->
+     <div class="_process_warp">
+       <Ha-process :percent='100'>
+         <template slot="content">
+           <div class="_process_percent font-1">
+           <div class="_percent_1">10%</div>
+           <div class="_percent_2">10%</div>
+           <div class="_percent_3">10%</div>
+         </div>
+         <div class="_process_item_warp">
+
+           <div class="_process_item">
+            <img :src="test2"/>
+            <HaMarquee class="_item_name font-3" :text="32131233123"></HaMarquee>
+          </div>
+
+          <div class="_process_item _process_item2 _process_item_can">
+           <img :src="test2"/>
+            <HaMarquee class="_item_name font-3">312312312</HaMarquee>
+          </div>
+
+          <div class="_process_item _process_item3 _process_item_ed">
+           <img :src="test2"/>
+            <div class="_item_name font-3"></div>
+          </div>
+
+         </div>
+         </template>
+       </Ha-process>
+     </div>
+      <!-- 维修物件 -->
+      <div class="_repair_warp">
+        <div class="_repair_main">
+          <div class="_repair_1"></div>
+          <div class="_repair_center"></div>
+          <div class="_repair_2"></div>
+          <div class="_repair_light "></div>
+          <div class="_repair_breathe breathe"></div>
+        </div>
+      </div>
     </div>
     <!-- 右侧 -->
     <div class="__right" >
-      <HaSquareDraw ref="draw"></HaSquareDraw>
+      <HaSquareDraw v-if="eventOpen" ref="draw"></HaSquareDraw>
       <!-- 倒计时 -->
-      <div class="time">
-        <div class="timeleft">
-          <div class="timeing" v-html="renderTimeLeft"></div>
+      <div class="_time_left" v-else>
+        <div class="_timer font-2">
+          <div class="_day">
+              {{countTime.DAYS}}
+            <div class="_label">Days</div>
+          </div>
+          <div class="_day">
+              {{countTime.HOURS}}
+            <div class="_label">Hours</div>
+          </div>
+          <div class="_day">
+              {{countTime.MINUTES}}
+            <div class="_label">MINUTES</div>
+          </div>
+          <div class="_day">
+              {{countTime.SECONDS}}
+            <div class="_label">seconds</div>
+          </div>
         </div>
+        <div class="_timer_label">"*THIS MODULE WILL VALID AFTER JAN 31ST"</div>
       </div>
-      <HaMarquee :text="'dasdasdasdasdasdasdasdasdasdasdasdas'"></HaMarquee>
+      <!-- <HaMarquee  :text="text"></HaMarquee> -->
+    </div>
     </div>
   </div>
 </template>
@@ -25,24 +82,31 @@ import { Component, Vue } from 'vue-property-decorator';
 import {
   State, Getter, Action, Mutation, namespace,
 } from 'vuex-class';
-import HaHeader from '@/components/HaHeader/main.vue';
+import HaHead from '@/components/HaHead/main.vue';
 import HaProcess from '@/components/HaProcess/main.vue';
 import HaSquareDraw from '@/components/HaSquareDraw/main.vue';
-
 import { getLangForTW, getTimeLeft } from '@/utils/utils';
+
+const test2  = require('../assets/images/test2.png');
 
 const homeStore = namespace('home');
 // 组件注册
 @Component({
   name: 'Home',
   components: {
-    HaHeader,
+    HaHead,
     HaProcess,
     HaSquareDraw,
   },
 })
 export default class Home extends Vue {
   transify: any;
+
+  text:string = '12345'
+
+  eventOpen:boolean = true
+
+  test2:any = test2
 
   countTime = {
     DAYS: 0,
@@ -60,21 +124,6 @@ export default class Home extends Vue {
 
   get computedAccessToken() {
     return this.$route.query.access_token || window.sessionStorage.getItem('AccessToken') || '';
-  }
-
-  get renderTimeLeft() {
-    let final = 'DAY:{{day}} HOUR:{{hour}}';
-    final = final.replace('{{day}}', `<span class="day">${this.countTime.DAYS}</span>`);
-    final = final.replace(
-      '{{hour}}',
-      ` <span class="hour">${this.countTime.HOURS}</span>
-        :
-        <span class="minit">${this.countTime.MINUTES}</span>
-        :
-        <span class="second">${this.countTime.SECONDS}</span>`,
-    );
-    final = final.replace('(GMT+8)', '');
-    return final;
   }
 
   setCountDown() {
@@ -106,11 +155,186 @@ export default class Home extends Vue {
 <style lang="scss" scoped>
 
 .home {
+  @include bgc();
+  height: 100%;
+  width: 100%;
+  background-image: url('../assets/images/bg.png');
+  .main{
+        display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+  }
   .__left{
-    float: left;
+    // float: left;
+    display: flex;
+    justify-content: space-between;
+    ._process_warp{
+      padding-left: 63px;
+      padding-right: 146px;
+      ._process_percent{
+        color: #ffd200;
+        font-size: 25px;
+        ._percent_1{
+          position: absolute;
+          left: -50px;
+          top:calc(66% - 10px);
+        }
+        ._percent_2{
+          position: absolute;
+          left: -50px;
+          top:calc(33% - 10px);
+        }
+        ._percent_3{
+          position: absolute;
+        left: -50px;
+        top: calc(0% - 10px);
+        }
+      }
+      ._process_item_warp{
+        color: #ffffff;
+        font-size: 20px;
+      }
+      ._process_item{
+       position: absolute;
+        left: 32px;
+        top: calc(0% - 25px);
+        width: 131px;
+        height: 110px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include bgc();
+         background-image: url('../assets/images/redeemBg1.png');
+         img{
+           width: 70px;
+           margin-left: 20px;
+         }
+         ._item_name{
+           font-size: 20px;
+           position: absolute;
+           left: 20px;
+           bottom:-30px;
+           width: 110px;
+           height: 20px;
+         }
+      }
+      ._process_item2{
+        top: calc(33% - 26px);
+      }
+      ._process_item3{
+        top: calc(66% - 27px);
+      }
+
+      ._process_item_can{
+        background-image: url('../assets/images/redeemBg2.png');
+      }
+      ._process_item_ed{
+        background-image: url('../assets/images/redeemBg3.png');
+      }
+    }
+    ._repair_warp{
+      width: 368px;
+      height: 499px;
+      ._repair_main{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        ._repair_1{
+           @include bgc();
+           width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          z-index: 3;
+           background-image: url('../assets/images/stuff1.png');
+        }
+        ._repair_center{
+           position: absolute;
+          left: 154px;
+          top: 160px;
+           @include bgc();
+           z-index: 2;
+           width: 70px;
+           height: 73px;
+           background-image: url('../assets/images/stuffCenter1.png');
+        }
+        ._repair_2{
+           position: absolute;
+          left: 96px;
+          top: 86px;
+           @include bgc();
+           background-image: url('../assets/images/stuff2.png');
+           width: 188px;
+            height: 234px;
+            z-index: 1;
+        }
+        ._repair_breathe{
+          @include bgc();
+          position: absolute;
+          left: 26px;
+          top: 16px;
+          width: 320px;
+           height: 357px;
+           z-index: 4;
+           background-image: url('../assets/images/breatheLight.png');
+        }
+      }
+    }
   }
   .__right{
-    float: right;
+    // float: right;
+    margin-right: 15px;
+    ._time_left{
+      position: relative;
+      width: 689px;
+      height: 560px;
+      @include bgc();
+      background-image: url('../assets/images/rightClose.png');
+      ._timer{
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        left:47px;
+        bottom: 77px;
+        width: 596px;
+        height: 100px;
+        background-color: rgba(0,0,0,0.83);
+        color: #ffd200;
+        font-size: 80px;
+        ._day{
+          position: relative;
+          width: 136px;
+          line-height: 72px;
+          height: 100px;
+          text-align: center;
+        }
+        ._label{
+          position: absolute;
+          width: 136px;
+          left: 0;
+          bottom: -14px;
+          text-align: center;
+          font-family: $font-family;
+          font-size: 20px;
+          color: #ffffff;
+        }
+      }
+      ._timer_label{
+        text-align: center;
+        font-size: 20px;
+        color: #ffd200;
+        width: 480px;
+        height: 40px;
+        line-height: 20px;
+        @include ellipsis-line-middle(2,'center');
+        font-family: $font-family;
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        margin-left: -240px;
+      }
+    }
   }
 }
 </style>

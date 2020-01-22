@@ -29,7 +29,15 @@
  * }
 */
 /* eslint-disable no-param-reassign */
-const marquee = (el:any) => {
+const marquee = (el:any, binding:any, vnode:any) => {
+  if (el.children.length > 1) {
+    el.style = null;
+    el.classList.remove('marquee');
+    // eslint-disable-next-line no-plusplus
+    for (let i = 1; i < el.children.length; i++) {
+      el.removeChild(el.children[i]);
+    }
+  }
   if (el.classList.contains('marquee')) return;
   let timer:any = null;
   timer = setTimeout(() => {

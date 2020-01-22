@@ -1,32 +1,67 @@
-@import url('https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap');
-@import url("https://fonts.googleapis.com/css?family=Bangers&display=swap");
-// 数字
-@font-face {
-  font-family: 'Bebas Neue Number';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Bebas Neue Regular'), local('BebasNeue-Regular'), url(https://fonts.gstatic.com/l/font?kit=JTUSjIg69CK48gW7PXooxWtrzAbjydxFlRmQn1kIfkdt&skey=6bd981f07b300212&v=v1) format('woff2');
-}
-
-
 //中文字体
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap');
 
 // 越南俄语字体
 @import url('https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz&display=swap');
 
-@font-face {
-    font-family: 'Bahnschrift';
-    src: url('/fonts/Bahnschrift.ttf');
-}
+// 数字
+// @font-face {
+//   font-family: 'Bebas Neue Number';
+//   font-style: normal;
+//   font-weight: 400;
+//   font-display: swap;
+//   src: local('Bebas Neue Regular'), local('BebasNeue-Regular'), url(https://fonts.gstatic.com/l/font?kit=JTUSjIg69CK48gW7PXooxWtrzAbjydxFlRmQn1kIfkdt&skey=6bd981f07b300212&v=v1) format('woff2');
+// }
 
-// 设置统一字体
+// 引入外部字体
+// @font-face {
+//     font-family: 'Bahnschrift';
+//     src: url('/fonts/Bahnschrift.ttf');
+// }
 
-$font-family:'Bebas Neue', cursive;
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:200,600i,700,700i&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Teko&display=swap');
 
-$sub_font-family: 'Bahnschrift';
+// 特殊字体，无需更改
 
 $zh-font-family: 'Noto Sans TC', sans-serif;
 
 $vnru-font-family:'Bebas Neue Number', 'Yanone Kaffeesatz', sans-serif;
+
+// 设置统一字体
+$font-family: 'Titillium Web', sans-serif;
+
+$sub_font-family: 'Teko', sans-serif;
+
+.font-1{
+    font-family:$font-family;
+    font-weight:600;
+    font-style:Italic;
+}
+// $font-1: 'Titillium Web Semi Bold Italic';
+
+.font-2{
+    font-family:$font-family;
+    font-weight:700;
+    font-style:normal;
+}
+
+// $font-2: 'TitilliumWeb-Bold';
+
+.font-3{
+    font-family:$font-family;
+    font-weight:700;
+    font-style:Italic;
+}
+// $font-3: 'TitilliumWeb-BoldItalic';
+
+.font-4{
+    font-style:Italic;
+}
+// $font-4: 'TitilliumWeb-Italic';
+.font-5{
+    font-family:$font-family;
+    font-weight:200;
+    font-style:normal;
+}
+// $font-5: 'TitilliumWeb-ExtraLight';
