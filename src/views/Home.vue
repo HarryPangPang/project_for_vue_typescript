@@ -20,7 +20,7 @@
 
            <div class="_process_item">
             <img :src="test2"/>
-            <HaMarquee class="_item_name font-3" :text="32131233123"></HaMarquee>
+            <HaMarquee class="_item_name font-3" :text="'物品名称'"></HaMarquee>
           </div>
 
           <div class="_process_item _process_item2 _process_item_can">
@@ -41,10 +41,13 @@
       <div class="_repair_warp">
         <div class="_repair_main">
           <div class="_repair_1"></div>
-          <div class="_repair_center"></div>
+          <div :class="[
+          {'_repair_center' : ComputedPercentage> 0},
+          {'_repair_center2':ComputedPercentage===2},
+          {'_repair_center3':ComputedPercentage===3}]"></div>
           <div class="_repair_2"></div>
           <div class="_repair_light "></div>
-          <div class="_repair_breathe breathe"></div>
+          <div class="_repair_breathe breathe" v-show="repairAnimation"></div>
         </div>
         <!-- 抽奖 -->
         <div class="_reparir_btn font-3" @click="eventRepair">
@@ -88,7 +91,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import {
   State, Getter, Action, Mutation, namespace,
 } from 'vuex-class';
@@ -125,11 +128,47 @@ export default class Home extends Vue {
     SECONDS: 0,
   };
 
+  percentage:number = 0
+
+  percentChanged:boolean = false
+
   @homeStore.State(state => state.info) private info:any
+
+  @homeStore.State(state => state.repairAnimation) private repairAnimation:any
 
   @homeStore.Action('getInfo') private getInfo!:Function
 
   @homeStore.Action('repair') private repair!:Function
+
+  get ComputedPercentage() {
+    if (this.info && this.info.percentage > 0) {
+      const x1 = this.info.stages[0].percentage;
+      const x2 = this.info.stages[1].percentage;
+      const x3 = this.info.stages[2].percentage;
+      const percent = this.info.percentage;
+      if (percent > 0 && (percent < x1)) {
+        return 0;
+      }
+      if ((percent > x1 || percent === x1) && (percent < x2)) {
+        return 1;
+      }
+      if ((percent > x2 || percent === x2) && (percent < x3)) {
+        return 2;
+      }
+      if (percent > x3 || percent === x3) {
+        return 3;
+      }
+      return -1;
+    }
+    return -1;
+  }
+
+  @Watch('percentage')
+  onPercentageChange(oldVal:number, newVal: number) {
+    if(oldVal<newVal){
+      
+    }
+  }
 
   // 获取语言
   get computedLang() {
@@ -161,9 +200,7 @@ export default class Home extends Vue {
   }
 
   eventRepair() {
-    if (this.info.left_free_num > 0) {
-      this.repair();
-    }
+    this.repair();
   }
 
   // 生命周期函数
@@ -332,6 +369,22 @@ export default class Home extends Vue {
            height: 73px;
            background-image: url('../assets/images/stuffCenter1.png');
         }
+        ._repair_center2{
+           width: 187px;
+           height: 202px;
+            left: 96px;
+            top: 94px;
+          background-image: url('../assets/images/stuffCenter2.png');
+        }
+
+        ._repair_center3{
+           width: 188px;
+           left: 96px;
+            top: 64px;
+           height: 255px;
+          background-image: url('../assets/images/stuffCenter3.png');
+        }
+
         ._repair_2{
            position: absolute;
           left: 96px;

@@ -22,13 +22,13 @@
     </div>
 
     <!-- 抽奖 -->
-    <div class="_draw_btn font-3">
-          <div class="_draw_content">CHARGE UP</div>
-        </div>
-        <div class="_draw_cost">
-          <i class="_diamond"></i>
-          <span class="_cost">8888</span>
-        </div>
+    <div class="_draw_btn font-3" @click="eventDraw">
+      <div class="_draw_content">CHARGE UP</div>
+    </div>
+    <div class="_draw_cost">
+        <i class="_diamond"></i>
+        <span class="_cost">8888</span>
+    </div>
   </div>
 </template>
 
@@ -71,6 +71,13 @@ export default class HaSquareDraw extends Vue {
 
   private timer2:any // 定时器
 
+  eventDraw() {
+    this.start();
+    setTimeout(() => {
+      this.catchResult = true;
+    }, 3000);
+  }
+
   startRoll() {
     this.timer1 = setInterval(() => {
       this.current += 1;
@@ -107,11 +114,6 @@ export default class HaSquareDraw extends Vue {
   }
 
   created() {
-    this.start();
-
-    setTimeout(() => {
-      this.catchResult = true;
-    }, 3000);
   }
 }
 </script>

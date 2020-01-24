@@ -1,6 +1,6 @@
 <template>
   <div class="__process_warp">
-    {{processCalc}}
+    <div class="_procee_out"></div>
     <div class="__process"></div>
     <div class="__process_black"></div>
     <slot name="content"></slot>
@@ -8,7 +8,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import {
+  Component, Vue, Prop, Watch,
+} from 'vue-property-decorator';
 import {
   State, Getter, Action, Mutation, namespace,
 } from 'vuex-class';
@@ -25,11 +27,13 @@ export default class HaProcess extends Vue {
 
   @Prop() percent!:number
 
-  get processCalc() {
+  @Watch('percent', { immediate: true, deep: true })
+  onPercentChange(val:number, oldVal:number) { this.processCalc(); }
+
+  processCalc() {
     this.$nextTick(() => {
       this.processCtrl(100 - this.getPercent - 2);
     });
-    return '';
   }
 
   get getPercent() {
@@ -50,6 +54,9 @@ export default class HaProcess extends Vue {
         return 66 + c;
       }
     }
+    if (this.percent > 100) {
+      return 100;
+    }
     return 0;
   }
 
@@ -60,6 +67,7 @@ export default class HaProcess extends Vue {
       easing: 'easeInOutQuad',
       direction: 'normal',
       loop: false,
+      // duration: 3600,
     });
   }
 }
@@ -71,6 +79,16 @@ export default class HaProcess extends Vue {
     @include bgc();
     position: relative;
     background-image: url('../../assets/images/processbg.png');
+    ._procee_out{
+      height: 544px;
+      width: 33px;
+      @include bgc();
+      position: absolute;
+      z-index: 3;
+      left: 0;
+      bottom: 0;
+      background-image: url('../../assets/images/processbg.png');
+    }
     .__process_black{
       max-height: calc(100% - 6px);
       height:100%;

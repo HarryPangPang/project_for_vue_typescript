@@ -1,6 +1,6 @@
 <template>
-  <div class="_header_warp font-1" v-if="info">
-    <div class="_head_left ">uid:{{info.uid}}</div>
+  <div class="_header_warp font-1" v-if="info&&info.uid">
+    <div class="_head_left">uid:{{info.uid}}</div>
     <div class="_head_title">
       <span class="_head_text font-2">Black Friday Sales</span>
     </div>

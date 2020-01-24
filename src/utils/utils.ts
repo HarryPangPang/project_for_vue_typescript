@@ -370,3 +370,9 @@ export const resortArraryObject = (arr:[], name:string) => {
   });
   return tmpArrary;
 };
+
+
+export const delayTimeOut = (fn:Function, time:number) => {
+  let timer:any = null;
+  timer = setTimeout(() => { fn(); clearTimeout(timer); }, time);
+};

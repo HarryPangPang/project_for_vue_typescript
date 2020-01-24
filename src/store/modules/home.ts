@@ -1,8 +1,9 @@
+/* eslint-disable no-param-reassign */
 import { http } from '@/network/http';
 import { api } from '@/api/index';
 import { HaMessage } from '@/uiFeatures/index';
 import ToastLang from '@/constants/lang/en';
-import { resortArraryObject } from '@/utils/utils';
+import { resortArraryObject, delayTimeOut } from '@/utils/utils';
 
 interface infoParams{
   lang:string,
@@ -13,9 +14,10 @@ interface infoParams{
 const state = {
   info: {
     transify: null,
+    left_free_num: 0,
   },
   canClick: true,
-  percentage: 0
+  repairAnimation: false,
 };
 // 错误处理
 const HandleError = (error:any, delay?:number) => {
@@ -50,25 +52,39 @@ const HandleError = (error:any, delay?:number) => {
 
 const mutations = {
   setValue(states:any, data:any) {
-    // eslint-disable-next-line no-param-reassign
     if (data.value && data.value.stages) {
-      // eslint-disable-next-line no-param-reassign
       data.value.stages = resortArraryObject(data.value.stages, 'percentage');
     }
-    // eslint-disable-next-line no-param-reassign
+
     states[data.key] = data.value;
   },
 
   updateFreeRepairLeft(states:any) {
     if (states.info && states.info.left_free_num > 0) {
-      // eslint-disable-next-line no-param-reassign
       states.info.left_free_num -= 1;
     }
   },
 
   updatePercentage(states:any, percentage:number) {
-    // eslint-disable-next-line no-param-reassign
-    states.percentage = percentage;
+    // states.info.percentage = percentage;
+    // test
+    states.info.percentage = states.info.percentage + 20;
+  },
+
+  updateRepairAnimation(states:any, status:boolean) {
+    states.repairAnimation = status;
+  },
+
+  updateRepairToken(states:any) {
+    states.info.repair_token -= states.info.repair_cost;
+  },
+  // 更换钻石
+  updateRepairCenter(states:any) {
+    // const stage1 = states.info.stages[0].percentage;
+    // const stage2 = states.info.stages[1].percentage;
+    // const stage3 = states.info.stages[2].percentage;
+    // const current = states.info.percentage;
+    // if(current>0)
   },
 };
 
@@ -95,12 +111,27 @@ const actions = {
 
   // 维修
   repair({ commit }:any) {
+    console.log(state.info.percentage)
     http.post(api.repair).then((res:any) => {
       if (res && res.error) {
         HandleError(res.error);
       } else {
-        commit('updateFreeRepairLeft');
+        if (state.info.left_free_num > 0) {
+          commit('updateFreeRepairLeft');
+        } else {
+          commit('updateRepairToken');
+        }
         commit('updatePercentage', res.data.percentage);
+        // 呼吸灯打开和延迟关闭
+        commit('updateRepairAnimation', true);
+        delayTimeOut(() => {
+          commit('updateRepairAnimation', false);
+        }, 3600);
+
+        // 更换钻石
+        delayTimeOut(() => {
+          commit('updateRepairCenter');
+        }, 3700);
       }
     }).catch((e) => {
       HandleError(e);
