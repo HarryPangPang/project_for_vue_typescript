@@ -1,7 +1,7 @@
 <template>
   <div id="home-lang" class="home" :data-lang="computedLang" v-if="info">
     <!-- 头部 -->
-    <HaHead></HaHead>
+    <HaHead :eventQuestion="eventQuestion"></HaHead>
     <div class="main">
       <!-- 左侧 -->
     <div class="__left">
@@ -86,6 +86,22 @@
       </div>
     </div>
     </div>
+    <!-- 规则弹窗 -->
+    <HaDialog :visable.sync="ruleVisable">
+      <div slot="content" v-html="'<span>rule</span>'"></div>
+    </HaDialog>
+
+    <!-- 获奖弹窗 -->
+    <HaDialog :visable.sync="rewardVisable">
+      <div slot="content">
+        <div class="_reward_warp">
+          <HaItem></HaItem>
+          <HaItem></HaItem>
+          <button class="_reward_ok"></button>
+        </div>
+      </div>
+    </HaDialog>
+
   </div>
 </template>
 
@@ -96,6 +112,7 @@ import {
 } from 'vuex-class';
 import HaHead from '@/components/HaHead/main.vue';
 import HaProcess from '@/components/HaProcess/main.vue';
+import HaItem from '@/components/HaItem/main.vue';
 import HaSquareDraw from '@/components/HaSquareDraw/main.vue';
 import { getLangForTW, delayTimeOut } from '@/utils/utils';
 
@@ -115,6 +132,10 @@ export default class Home extends Vue {
   test2:any = test2
 
   percentageStage:number = -1
+
+  ruleVisable:boolean = false
+
+  rewardVisable:boolean = true
 
   @homeStore.State(state => state.info) private info:any
 
@@ -185,6 +206,10 @@ export default class Home extends Vue {
   // 维修
   eventRepair() {
     this.repair();
+  }
+
+  eventQuestion() {
+    this.ruleVisable = true;
   }
 
   // 生命周期函数

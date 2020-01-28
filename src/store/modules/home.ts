@@ -74,7 +74,7 @@ const mutations = {
   // 更新百分比
   updatePercentage(states:any, percentage:number) {
     // states.info.percentage = percentage;
-    // test
+    // for test
     states.info.percentage = states.info.percentage + 20;
   },
   // 更新维修动画

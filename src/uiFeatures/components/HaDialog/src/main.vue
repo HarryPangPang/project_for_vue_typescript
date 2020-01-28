@@ -1,17 +1,13 @@
 <template>
   <div class="mask" v-show="visable">
     <div class="dialog outter-dialog common-dialog fadeInUp animated ">
-      <div class="warp">
-        <div class="close">
-          <i
-            @click="close"
-            class="icon-cross"
-          >X</i>
+        <div class="dialog-content">
+          <i @click="close" class="icon-cross"></i>
+          <div class="dialog-title font-3">{{title}}</div>
+          <div class="content">
+            <slot name="content"></slot>
+          </div>
         </div>
-        <div class="content">
-          <slot name="content"></slot>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -30,6 +26,12 @@ export default class HaDialog extends Vue {
       default: false,
       required: true,
     }) syncedVisable !: Boolean
+
+    @Prop({
+      type: String,
+      default: null,
+      required: false,
+    }) title?: String
 
     @Prop({
       type: Function,
@@ -62,23 +64,18 @@ export default class HaDialog extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.warp {
-  max-height: 80%;
-  position: relative;
-  color: #fff;
-  background-color: #fff;
-  .close {
+
     .icon-cross {
       position: absolute;
-      z-index: 2;
-      top: 0;
+      z-index: 13;
+      top: 24px;
+      left: 34px;
+      width: 82px;
+      height: 82px;
       background-repeat: no-repeat;
-        left: -90px;
-        width: 65px;
-        height: 65px;
-        background-size: 65px;
+      background-size: 100% 100%;
+      background-image: url('../../../../assets/images/dialogClose.png');
     }
-  }
    .can-scoll-y{
       width: 100%;
       height: 100%;
@@ -86,14 +83,47 @@ export default class HaDialog extends Vue {
       overflow-x: hidden;
       overflow-y: auto;
     }
-  .content {
+  .dialog-content {
     background-repeat: no-repeat;
-    position: relative;
     background-size: 100% 100%;
-      padding:45px;
-      font-size:26px;
-      width: 895px;
-      height: 530px;
+    background-image: url('../../../../assets/images/dialogBg.png');
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 821px;
+    height: 484px;
+    margin-left: -440px;
+    margin-top: -242px;
+    z-index: 12;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    .dialog-title{
+      position: absolute;
+      top: 24px;
+      left: 120px;
+      width: 676px;
+      height: 78px;
+      line-height: 78px;
+      color: #fbfeff;
+      font-size: 55px;
+      text-shadow: 2px 3px 0px #ae760b,-7px 8px 0px rgba(12, 9, 13, 0.43);
+    }
+    .content{
+      overflow-y: auto;
+      overflow-x: hidden;
+      font-family: $font-family;
+      font-size: 30px;
+      margin: 40px;
+      word-break: break-word;
+      width: 752px;
+      position: absolute;
+      height: 320px;
+      left: 0;
+      top: 70px;
+    }
   }
-}
 </style>

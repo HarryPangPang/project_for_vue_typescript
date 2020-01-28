@@ -2,7 +2,10 @@
   <div class="_header_warp font-1" v-if="info&&info.uid">
     <div class="_head_left">uid:{{info.uid}}</div>
     <div class="_head_title">
-      <span class="_head_text font-2">Black Friday Sales</span>
+      <span class="_head_text font-2">
+        Black Friday Sales
+        <i @click="eventQuestion" class="_head_question"></i>
+      </span>
     </div>
     <div class="_head_right">
       <div class="_head_label">
@@ -18,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import {
   State, Getter, Action, Mutation, namespace,
 } from 'vuex-class';
@@ -32,6 +35,12 @@ const homeStore = namespace('home');
 )
 
 export default class Hahead extends Vue {
+  @Prop({
+    type: Function,
+    default: undefined,
+    required: false,
+  }) eventQuestion ?: Function
+
   @homeStore.State(state => state.info) private info:any
 }
 </script>
@@ -66,7 +75,7 @@ export default class Hahead extends Vue {
       text-align: center;
     ._head_text{
       position: relative;
-      &::after{
+      ._head_question{
         width: 51px;
         height: 51px;
         content: '';

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import Vue from 'vue';
 import VueAnalytics from 'vue-analytics';
 import http from '@/network/http';

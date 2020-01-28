@@ -5,11 +5,12 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "deploy":"./shell/deploy.sh",
     "tpl": "node buildhelper/tplbuilder.js",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "ss": "serve -s ./dist"
+    "server-test": "serve -s ./dist"
   },
   "dependencies": {
     "animejs": "^3.1.0",
