@@ -42,9 +42,9 @@
         <div class="_repair_main">
           <div class="_repair_1"></div>
           <div :class="[
-          {'_repair_center' : ComputedPercentage> 0},
-          {'_repair_center2':ComputedPercentage===2},
-          {'_repair_center3':ComputedPercentage===3}]"></div>
+          {'_repair_center' : percentageStage> 0},
+          {'_repair_center2':percentageStage===2},
+          {'_repair_center3':percentageStage===3}]"></div>
           <div class="_repair_2"></div>
           <div class="_repair_light "></div>
           <div class="_repair_breathe breathe" v-show="repairAnimation"></div>
@@ -61,7 +61,7 @@
     </div>
     <!-- 右侧 -->
     <div class="__right" >
-      <HaSquareDraw v-if="eventOpen" ref="draw"></HaSquareDraw>
+      <HaSquareDraw v-if="info.draw_open_left_time<1" ref="draw"></HaSquareDraw>
       <!-- 倒计时 -->
       <div class="_time_left" v-else>
         <div class="_timer font-2">
@@ -84,7 +84,6 @@
         </div>
         <div class="_timer_label">"*THIS MODULE WILL VALID AFTER JAN 31ST"</div>
       </div>
-      <!-- <HaMarquee  :text="text"></HaMarquee> -->
     </div>
     </div>
   </div>
@@ -98,7 +97,7 @@ import {
 import HaHead from '@/components/HaHead/main.vue';
 import HaProcess from '@/components/HaProcess/main.vue';
 import HaSquareDraw from '@/components/HaSquareDraw/main.vue';
-import { getLangForTW, getTimeLeft } from '@/utils/utils';
+import { getLangForTW, delayTimeOut } from '@/utils/utils';
 
 const test2 = require('../assets/images/test2.png');
 
@@ -113,26 +112,13 @@ const homeStore = namespace('home');
   },
 })
 export default class Home extends Vue {
-  transify: any;
-
-  text:string = '12345'
-
-  eventOpen:boolean = true
-
   test2:any = test2
 
-  countTime = {
-    DAYS: 0,
-    HOURS: 0,
-    MINUTES: 0,
-    SECONDS: 0,
-  };
-
-  percentage:number = 0
-
-  percentChanged:boolean = false
+  percentageStage:number = -1
 
   @homeStore.State(state => state.info) private info:any
+
+   @homeStore.State(state => state.countTime) private countTime:any
 
   @homeStore.State(state => state.repairAnimation) private repairAnimation:any
 
@@ -140,33 +126,40 @@ export default class Home extends Vue {
 
   @homeStore.Action('repair') private repair!:Function
 
-  get ComputedPercentage() {
+  @homeStore.Action('repairAnimate') private repairAnimate!:Function
+
+  //  监听百分比变化
+  @Watch('info.percentage')
+  watchInfoPercentage(newValue:number, oldValue:number) {
+    this.repairAnimate();
     if (this.info && this.info.percentage > 0) {
       const x1 = this.info.stages[0].percentage;
       const x2 = this.info.stages[1].percentage;
       const x3 = this.info.stages[2].percentage;
       const percent = this.info.percentage;
       if (percent > 0 && (percent < x1)) {
-        return 0;
+        delayTimeOut(() => {
+          this.percentageStage = 0;
+        }, 3500);
+        return;
       }
       if ((percent > x1 || percent === x1) && (percent < x2)) {
-        return 1;
+        delayTimeOut(() => {
+          this.percentageStage = 1;
+        }, 3500);
+        return;
       }
       if ((percent > x2 || percent === x2) && (percent < x3)) {
-        return 2;
+        delayTimeOut(() => {
+          this.percentageStage = 2;
+        }, 3500);
+        return;
       }
       if (percent > x3 || percent === x3) {
-        return 3;
+        delayTimeOut(() => {
+          this.percentageStage = 3;
+        }, 3500);
       }
-      return -1;
-    }
-    return -1;
-  }
-
-  @Watch('percentage')
-  onPercentageChange(oldVal:number, newVal: number) {
-    if(oldVal<newVal){
-      
     }
   }
 
@@ -189,33 +182,21 @@ export default class Home extends Vue {
     return [];
   }
 
-  setCountDown() {
-    setInterval(() => {
-      const result = getTimeLeft(1602374400);
-      this.countTime.DAYS = result.DAYS;
-      this.countTime.HOURS = result.HOURS;
-      this.countTime.MINUTES = result.MINUTES;
-      this.countTime.SECONDS = result.SECONDS;
-    }, 1000);
-  }
-
+  // 维修
   eventRepair() {
     this.repair();
   }
 
   // 生命周期函数
-
   created() {
     this.getInfo({
       lang: this.computedLang,
       access_token: this.computedAccessToken,
     });
-    this.setCountDown();
   }
 }
 </script>
 <style lang="scss" scoped>
-
 .home {
   @include bgc();
   height: 100%;

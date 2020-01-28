@@ -2,7 +2,7 @@
   <div class="__process_warp">
     <div class="_procee_out"></div>
     <div class="__process"></div>
-    <div class="__process_black"></div>
+    <div class="__process_black" style="height:100%;"></div>
     <slot name="content"></slot>
   </div>
 </template>
@@ -67,7 +67,7 @@ export default class HaProcess extends Vue {
       easing: 'easeInOutQuad',
       direction: 'normal',
       loop: false,
-      // duration: 3600,
+      duration: 3600,
     });
   }
 }
@@ -91,7 +91,7 @@ export default class HaProcess extends Vue {
     }
     .__process_black{
       max-height: calc(100% - 6px);
-      height:100%;
+      // height:544px;
       width: 23px;
       position: absolute;
       left: 4px;
