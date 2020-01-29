@@ -9,7 +9,9 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "ss": "serve -s ./dist"
+    "deploy": "./shell/deploy.sh",
+    "ss": "serve -s ./dist",
+    "commit": "npx git-cz"
   },
   "dependencies": {
     "axios": "^0.19.1",
@@ -34,6 +36,7 @@
     "@vue/eslint-config-typescript": "^4.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
     "chalk": "^3.0.0",
+    "commitizen": "^4.0.3",
     "compression-webpack-plugin": "^3.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
