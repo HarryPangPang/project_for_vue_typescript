@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation */
 /* eslint-disable no-param-reassign */
 import { http } from '@/network/http';
 import { api } from '@/api/index';
@@ -13,8 +14,10 @@ interface infoParams{
 
 const state = {
   info: {
+    percentage: 0,
     transify: null,
     left_free_num: 0,
+    stages: [],
   },
   canClick: true, //  是否可以点击
   repairAnimation: false, // 维修动画开关
@@ -25,6 +28,7 @@ const state = {
     MINUTES: 0,
     SECONDS: 0,
   },
+  rewardShow: false, // 领取弹窗
 };
 // 错误处理
 const HandleError = (error:any, delay?:number) => {
@@ -92,6 +96,19 @@ const mutations = {
     states.countTime.MINUTES = result.MINUTES;
     states.countTime.SECONDS = result.SECONDS;
   },
+  // 更新是否可点击
+  updateCanClick(states:any, status:Boolean) {
+    states.canClick = status;
+  },
+  // 更新已领取
+  updateStageClaim(states:any, index:number) {
+    states.info.stages[index]['claimed'] = true;
+  },
+
+  // 更新领取弹窗
+  updateRewardShow(states:any, status:Boolean) {
+    states.rewardShow = status;
+  },
 };
 
 const actions = {
@@ -118,15 +135,19 @@ const actions = {
 
   // 维修动画控制
   repairAnimate({ commit }:any) {
+    commit('updateCanClick', false);
     // 呼吸灯打开和延迟关闭
     commit('updateRepairAnimation', true);
     delayTimeOut(() => {
       commit('updateRepairAnimation', false);
+      commit('updateCanClick', true);
     }, 3600);
   },
 
   // 维修
   repair({ commit }:any) {
+    if (!state.canClick) return;
+    commit('updateCanClick', false);
     http.post(api.repair).then((res:any) => {
       if (res && res.error) {
         HandleError(res.error);
@@ -149,6 +170,31 @@ const actions = {
       const result = getTimeLeft(1602374400);
       commit('updateTimeLeft', result);
     }, 1000);
+  },
+
+  // 领取
+  redeem({ commit }:any, index:number) {
+    if (!state.canClick) return;
+
+    if (state.info.percentage < state.info.stages[index]['percentage']) {
+      return;
+    }
+    if (state.info.stages[index]['claimed']) {
+      return;
+    }
+
+    commit('updateCanClick', false);
+    http.post(api.claim, { stage: index }).then((res:any) => {
+      if (res && res.error) {
+        HandleError(res.error);
+      } else {
+        commit('updateStageClaim', index);
+        commit('updateCanClick', true);
+        commit('updateRewardShow', true);
+      }
+    }).catch((e) => {
+      HandleError(e);
+    });
   },
 
 };

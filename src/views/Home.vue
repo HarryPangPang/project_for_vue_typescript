@@ -18,17 +18,32 @@
          <!-- 进度条物品 -->
          <div class="_process_item_warp">
 
-           <div class="_process_item">
+           <div class="_process_item"
+           @click="eventRedeem(2)"
+           :class="[
+          {'_process_item_can': !(info.percentage < computedStages[2]['percentage'])},
+          {'_process_item_ed': computedStages[2]['claimed']}
+          ]">
             <img :src="test2"/>
             <HaMarquee class="_item_name font-3" :text="'物品名称'"></HaMarquee>
           </div>
 
-          <div class="_process_item _process_item2 _process_item_can">
+          <div class="_process_item _process_item2"
+          @click="eventRedeem(1)"
+          :class="[
+          {'_process_item_can': !(info.percentage < computedStages[1]['percentage'])},
+          {'_process_item_ed': computedStages[1]['claimed']}
+          ]">
            <img :src="test2"/>
             <HaMarquee class="_item_name font-3" :text="32131233123"></HaMarquee>
           </div>
 
-          <div class="_process_item _process_item3 _process_item_ed">
+          <div class="_process_item _process_item3"
+          @click="eventRedeem(0)"
+          :class="[
+          {'_process_item_can': !(info.percentage < computedStages[0]['percentage'])},
+          {'_process_item_ed': computedStages[0]['claimed']}
+          ]">
            <img :src="test2"/>
            <HaMarquee class="_item_name font-3" :text="'大蒜大蒜'"></HaMarquee>
           </div>
@@ -61,7 +76,8 @@
     </div>
     <!-- 右侧 -->
     <div class="__right" >
-      <HaSquareDraw v-if="info.draw_open_left_time<1" ref="draw"></HaSquareDraw>
+      <!-- 抽奖 -->
+      <HaSquareDraw v-if="info.draw_open_left_time>1" ref="draw"></HaSquareDraw>
       <!-- 倒计时 -->
       <div class="_time_left" v-else>
         <div class="_timer font-2">
@@ -92,13 +108,12 @@
     </HaDialog>
 
     <!-- 获奖弹窗 -->
-    <HaDialog :visable.sync="rewardVisable">
-      <div slot="content">
-        <div class="_reward_warp">
+    <HaDialog :visable.sync="rewardVisable" :title="'Congraiomliae'">
+      <div class="_reward_warp" slot="content">
+        <div class="_reward_inline_warp">
           <HaItem></HaItem>
-          <HaItem></HaItem>
-          <button class="_reward_ok"></button>
         </div>
+        <div class="_reward_ok font-3" @click="eventCloseReward">confirmar</div>
       </div>
     </HaDialog>
 
@@ -126,6 +141,7 @@ const homeStore = namespace('home');
     HaHead,
     HaProcess,
     HaSquareDraw,
+    HaItem,
   },
 })
 export default class Home extends Vue {
@@ -135,19 +151,27 @@ export default class Home extends Vue {
 
   ruleVisable:boolean = false
 
-  rewardVisable:boolean = true
+  rewardVisable:boolean = false
 
   @homeStore.State(state => state.info) private info:any
 
-   @homeStore.State(state => state.countTime) private countTime:any
+  @homeStore.State(state => state.canClick) private canClick:any
+
+  @homeStore.State(state => state.countTime) private countTime:any
+
+  @homeStore.State(state => state.rewardShow) private rewardShow:any
 
   @homeStore.State(state => state.repairAnimation) private repairAnimation:any
 
   @homeStore.Action('getInfo') private getInfo!:Function
 
+  @homeStore.Action('redeem') private redeem!:Function
+
   @homeStore.Action('repair') private repair!:Function
 
   @homeStore.Action('repairAnimate') private repairAnimate!:Function
+
+  @homeStore.Mutation('updateRewardShow') private updateRewardShow!:Function
 
   //  监听百分比变化
   @Watch('info.percentage')
@@ -184,6 +208,11 @@ export default class Home extends Vue {
     }
   }
 
+  @Watch('rewardShow')
+  watchRewardShow(newValue:boolean, oldValue:boolean) {
+    this.rewardVisable = newValue;
+  }
+
   // 获取语言
   get computedLang() {
     const lang = this.$route.query.lang || window.sessionStorage.getItem('Lang') || getLangForTW();
@@ -208,8 +237,18 @@ export default class Home extends Vue {
     this.repair();
   }
 
+  // 领取
+  eventRedeem(index:number) {
+    this.redeem(index);
+  }
+
   eventQuestion() {
+    if (!this.canClick) return;
     this.ruleVisable = true;
+  }
+
+  eventCloseReward() {
+    this.updateRewardShow(false);
   }
 
   // 生命周期函数
@@ -466,6 +505,23 @@ export default class Home extends Vue {
         left: 50%;
         margin-left: -240px;
       }
+    }
+  }
+  ._reward_warp{
+    ._reward_inline_warp{
+      width: 100%;
+      display: inline-flex;
+      justify-content: center;
+    }
+    ._reward_ok{
+      @include bgc();
+      margin: 30px auto;
+      background-image: url('../assets/images/dialogBtn.png');
+      line-height: 80px;
+      width: 532px;
+      height: 96px;
+      font-size: 45px;
+      color: #261c0e;
     }
   }
 }

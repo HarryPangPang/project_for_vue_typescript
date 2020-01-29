@@ -1,5 +1,5 @@
 <template>
-  <div class="mask" v-show="visable">
+  <div v-show="visable">
     <div class="dialog outter-dialog common-dialog fadeInUp animated ">
         <div class="dialog-content">
           <i @click="close" class="icon-cross"></i>
@@ -9,6 +9,7 @@
           </div>
         </div>
     </div>
+    <div class="mask"></div>
   </div>
 </template>
 
@@ -64,7 +65,6 @@ export default class HaDialog extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
     .icon-cross {
       position: absolute;
       z-index: 13;
@@ -103,9 +103,10 @@ export default class HaDialog extends Vue {
     text-align: center;
     .dialog-title{
       position: absolute;
-      top: 24px;
-      left: 120px;
-      width: 676px;
+      top: 14px;
+      left: 0;
+      width: 770px;
+      padding-left: 35px;
       height: 78px;
       line-height: 78px;
       color: #fbfeff;

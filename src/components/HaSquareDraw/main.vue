@@ -6,18 +6,23 @@
       <div :class="{'__current':current===1}"></div>
     </div>
     <div class="__draw __draw_2">
+      <img :src="test2" class="_draw_item"/>
       <div :class="{'__current':current===2}"></div>
     </div>
     <div class="__draw __draw_3">
+      <img :src="test2" class="_draw_item"/>
       <div :class="{'__current':current===3}"></div>
     </div>
     <div class="__draw __draw_4" >
+      <img :src="test2" class="_draw_item"/>
       <div :class="{'__current':current===4}"></div>
     </div>
     <div class="__draw __draw_5">
+      <img :src="test2" class="_draw_item"/>
       <div :class="{'__current':current===5}"></div>
     </div>
     <div class="__draw __draw_6">
+      <img :src="test2" class="_draw_item"/>
       <div :class="{'__current':current===6}"></div>
     </div>
 
@@ -34,13 +39,20 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import {
+  State, Getter, Action, Mutation, namespace,
+} from 'vuex-class';
 
 const test2 = require('../../assets/images/test1.png');
+
+const homeStore = namespace('home');
 
 @Component({
   name: 'HaSquareDraw',
 })
 export default class HaSquareDraw extends Vue {
+  @homeStore.State(state => state.canClick) private canClick:any
+
   current:any = 0
 
   speed:number = 100

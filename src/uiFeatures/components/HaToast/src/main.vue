@@ -1,8 +1,9 @@
 <template>
-  <div class="ha-toast-warp mask" v-show="visable">
+  <div class="ha-toast-warp" v-show="visable">
     <div class="ha-toast-content">
       {{ msg }}
     </div>
+    <div class="mask"></div>
   </div>
 </template>
 

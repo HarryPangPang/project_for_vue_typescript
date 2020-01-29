@@ -1,8 +1,9 @@
 <template>
-  <div class="ha-toast-warp mask" v-show="visable">
+  <div class="ha-toast-warp" v-show="visable">
     <div class="ha-toast-content">
         <i class="ha-loading"></i>
     </div>
+    <div class="mask"></div>
   </div>
 </template>
 
@@ -44,7 +45,7 @@ export default class HaLoading extends Vue {
       line-height:70px;
       margin-left:-440px;
     font-size: 30px;
-    z-index: 12;
+    z-index: 31;
     .ha-loading{
       background-repeat: no-repeat;
       background-size: 100% 100%;
@@ -55,7 +56,7 @@ export default class HaLoading extends Vue {
       left: 50%;
       margin-left: -10vh;
       margin-top: -10vh;
-      z-index: 999;
+      z-index: 31;
       background-image: url("../../../../assets/images/loading.svg");
     }
   }
