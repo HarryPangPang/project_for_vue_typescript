@@ -30,6 +30,7 @@
     <div class="_draw_btn font-3" @click="eventDraw">
       <div class="_draw_content">CHARGE UP</div>
     </div>
+    <!-- 花费 -->
     <div class="_draw_cost">
         <i class="_diamond"></i>
         <span class="_cost">8888</span>

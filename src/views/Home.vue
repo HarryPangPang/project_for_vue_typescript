@@ -77,7 +77,7 @@
     <!-- 右侧 -->
     <div class="__right" >
       <!-- 抽奖 -->
-      <HaSquareDraw v-if="info.draw_open_left_time>1" ref="draw"></HaSquareDraw>
+      <HaSquareDraw v-if="info.draw_open_left_time<1" ref="draw"></HaSquareDraw>
       <!-- 倒计时 -->
       <div class="_time_left" v-else>
         <div class="_timer font-2">
