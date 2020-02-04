@@ -1,6 +1,6 @@
 #!/bin/sh
 # !!!!运行前请给予权限！！！ 执行下面的命令👇
-# chmod u+r+x ./shell/git.sh
+chmod u+r+x ./shell/validate-commit.sh
 
 gitdir='./'
 outdir='../'
@@ -24,13 +24,15 @@ else
     echo 'Find .git failed'
 fi
 
-cd $gitdir.git/hooks
-if rename commit-msg.origin commit-msg  2>/dev/null
-then
-    echo '\n'
-    echo 'Rename success'
-else
-    printf "%s\n"  "Rename fail"
-fi
+commitMsg=$(cat ./shell/lib/commit-msg)
 
-a =1
+cd $gitdir.git/hooks
+
+if find ./commit-msg.origin -false
+then
+    :
+else
+    mv commit-msg commit-msg.origin
+    touch commit-msg
+    echo $commitMsg > commit-msg
+fi

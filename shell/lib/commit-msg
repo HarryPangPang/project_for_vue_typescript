@@ -1,0 +1,11 @@
+#hook-changed\n
+MSG=`awk '{printf("%s",$0)}' $1`\n
+if [[ $MSG =~ ^(feat|fix|test|refactor|docs|style|chroe)\(.*\):.*$ ]]\n
+then\n
+	echo -e "\033[32m commit success! \033[0m"\n
+else\n
+    echo -e "\033[31m Error: the commit message is irregular \033[m"\n
+	echo -e "\033[31m Error: type must be one of [feat,fix,docs,style,refactor,test,chore] \033[m"\n
+    echo -e "\033[31m eg: feat(user): add the user login \033[m"\n
+	exit 1\n
+fi\n

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # !!!!运行前请给予权限！！！ 执行下面的命令👇
-# chmod u+r+x ./shell/deploy.sh
+chmod u+r+x ./shell/deploy.sh
 
 # 本地打包测试
 function deploy_local(){
