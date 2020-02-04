@@ -12,14 +12,17 @@ then
 elif find ../.git -false
 then
     gitdir='../'
+    outdir='../../'
 
 elif find ../../.git -false
 then
    gitdir='../../'
+   outdir='../../../'
 
 elif find ../../../.git -false
 then
     gitdir='../../../'
+    outdir='../../../../'
 else
     echo 'Find .git failed'
 fi
@@ -30,9 +33,11 @@ cd $gitdir.git/hooks
 
 if find ./commit-msg.origin -false
 then
-    :
+    mv commit-msg commit-msg.origin
+    touch commit-msg
+    cat $outdir../shell/lib/commit-msg > commit-msg
 else
     mv commit-msg commit-msg.origin
     touch commit-msg
-    echo $commitMsg > commit-msg
+    cat $outdir../shell/lib/commit-msg > commit-msg
 fi
