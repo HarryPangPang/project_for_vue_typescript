@@ -1,8 +1,8 @@
 #hook-changed\n
  MSG=`awk '{printf("%s",$0)}' $1`\n
- if [[ $MSG =~ ^(feat|fix|test|refactor|docs|style|chroe)\(.*\):.*$ ]]\n
+ if [[ $MSG =~ ^(feat|fix|test|refactor|docs|style|chore)\(.*\):.*$ ]]\n
  then\n
- 	\techo "[32m commit success! [0m"\n
+ 	\techo "[32m Commit success! [0m"\n
  else\n
  	\techo "[31m Error: the commit message is irregular [m"\n
  	\techo "[31m Rule: <type>(<scope>): <subject>[m"\n
