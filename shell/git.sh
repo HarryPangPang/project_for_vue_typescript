@@ -25,5 +25,3 @@ else
 fi
 
 cd $gitdir.git/hooks
-
-
