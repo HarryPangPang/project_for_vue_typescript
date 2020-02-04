@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # !!!!运行前请给予权限！！！ 执行下面的命令👇
 # chmod u+r+x ./shell/git.sh
 
@@ -25,3 +25,10 @@ else
 fi
 
 cd $gitdir.git/hooks
+if rename commit-msg.origin commit-msg  2>/dev/null
+then
+    echo '\n'
+    echo 'Rename success'
+else
+    printf "%s\n"  "Rename fail"
+fi

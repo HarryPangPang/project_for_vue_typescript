@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # !!!!运行前请给予权限！！！ 执行下面的命令👇
 # chmod u+r+x ./shell/deploy.sh
