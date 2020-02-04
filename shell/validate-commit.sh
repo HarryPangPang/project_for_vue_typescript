@@ -35,7 +35,8 @@ if find ./commit-msg.origin -false
 then
     mv commit-msg commit-msg.origin
     touch commit-msg
-    echo $commitMsg -e > commit-msg
+    chmod +x commit-msg
+    echo -e $commitMsg > commit-msg
 else
     mv commit-msg commit-msg.origin
     touch commit-msg

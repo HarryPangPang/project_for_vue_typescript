@@ -1,11 +1,19 @@
 #hook-changed\n
-MSG=`awk '{printf("%s",$0)}' $1`\n
-if [[ $MSG =~ ^(feat|fix|test|refactor|docs|style|chroe)\(.*\):.*$ ]]\n
-then\n
-	\techo -e "\033[32m commit success! \033[0m"\n
-else\n
-    \techo -e "\033[31m Error: the commit message is irregular \033[m"\n
-	\techo -e "\033[31m Error: type must be one of [feat,fix,docs,style,refactor,test,chore] \033[m"\n
-    \techo -e "\033[31m eg: feat(user): add the user login \033[m"\n
-	\texit 1\n
-fi
+ MSG=`awk '{printf("%s",$0)}' $1`\n
+ if [[ $MSG =~ ^(feat|fix|test|refactor|docs|style|chroe)\(.*\):.*$ ]]\n
+ then\n
+ 	\techo "[32m commit success! [0m"\n
+ else\n
+ 	\techo "[31m Error: the commit message is irregular [m"\n
+ 	\techo "[31m Rule: <type>(<scope>): <subject>[m"\n
+	\techo "[31m Error: type must be one of [feat,fix,docs,style,refactor,test,chore] [m"\n
+	\techo "[33m Example: fix(user): fix user login error[m"\n
+	\techo "\033[36m Tips:\033[0m"\n
+	\techo "\033[36m fix：修补bug\033[0m"\n
+	\techo "\033[36m docs：文档\033[0m"\n
+	\techo "\033[36m style：格式\033[0m"\n
+	\techo "\033[36m refactor：重构\033[0m"\n
+	\techo "\033[36m test：增加测试\033[0m"\n
+	\techo "\033[36m chore：构建过程或辅助工具的变动\033[0m"\n
+ 	\texit 1\n
+ fi
