@@ -32,3 +32,5 @@ then
 else
     printf "%s\n"  "Rename fail"
 fi
+
+a =1
