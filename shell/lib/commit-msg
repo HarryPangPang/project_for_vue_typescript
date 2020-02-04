@@ -11,8 +11,8 @@
 	\techo "\033[36m Tips:\033[0m"\n
 	\techo "\033[36m fix：修补bug\033[0m"\n
 	\techo "\033[36m docs：文档\033[0m"\n
-	\techo "\033[36m style：格式\033[0m"\n
-	\techo "\033[36m refactor：重构\033[0m"\n
+	\techo "\033[36m style：格式（不影响代码运行的变动）\033[0m"\n
+	\techo "\033[36m refactor：重构（即不是新增功能，也不是修改bug的代码变动）\033[0m"\n
 	\techo "\033[36m test：增加测试\033[0m"\n
 	\techo "\033[36m chore：构建过程或辅助工具的变动\033[0m"\n
  	\texit 1\n
