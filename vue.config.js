@@ -28,7 +28,7 @@ const CDNPATH = `https://freefiremobile-a.akamaihd.net/common/web_event/${packag
 
 module.exports = {
   // 基本路径
-  publicPath: './',
+  publicPath: isProduction && devNeedCdn ? CDNPATH : './',
 
   // 输出文件目录
   outputDir: 'dist',
