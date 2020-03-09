@@ -10,7 +10,7 @@
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "deploy":"./shell/deploy.sh",
-    "git:change":"./shell/validate-commit.sh",
+    "git:validate":"./shell/validate-commit.sh",
     "ss": "serve -s ./dist"
   },
   "dependencies": {

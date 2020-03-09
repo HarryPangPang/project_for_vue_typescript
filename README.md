@@ -49,6 +49,11 @@ yarn test:e2e
 yarn lint
 ```
 
+#### git commit validate
+```
+yarn git:validate
+```
+
 ### 包含内容
 1. 全局scss变量，从assets/css/index.scss引入
 2. 图片压缩
